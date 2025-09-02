@@ -4,19 +4,22 @@
     <li><a href="{{ '/' | relative_url }}">Home</a></li>
 
     {% for part in parts %} {% assign path = path | append: '/' | append: part
-    %} {% if forloop.last %}
+    %} {% if forloop.last %} {% assign part_words = part | split: '-' %} {%
+    assign part_words_count = part_words | size %} {% assign year_len =
+    part_words[0] | size %} {% assign month_len = part_words[1] | size %} {%
+    assign day_len = part_words[2] | size %}
+
     <li aria-current="page">
-      {% assign part_words = part | split: '-' %} {% if part_words.size > 3 and
-      part_words[0] | size == 4 and part_words[1] | size == 2 and part_words[2]
-      | size == 2 %} {{ part_words | slice: 3, part_words.size | join: ' ' |
+      {% if part_words_count > 3 and year_len == 4 and month_len == 2 and
+      day_len == 2 %} {{ part_words | slice: 3, part_words_count | join: ' ' |
       capitalize }} {% else %} {{ page.title | default: part | replace: "-", " "
       | capitalize }} {% endif %}
     </li>
     {% else %}
     <li>
-      <a href="{{ path | relative_url }}"
-        >{{ part | replace: "-", " " | capitalize }}</a
-      >
+      <a href="{{ path | relative_url }}">
+        {{ part | replace: "-", " " | capitalize }}
+      </a>
     </li>
     {% endif %} {% endfor %}
   </ol>
@@ -25,10 +28,8 @@
 <style>
   .breadcrumb-nav {
     font-size: 14px;
-    padding: 12px 0 12px 24px; /* top/bottom padding with left padding for spacing */
+    padding: 12px 0 12px 24px;
     background-color: #f4f4f4;
-    /* margin-bottom: 6px; */
-    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); subtle shadow */
     border-bottom: 1px solid #d7d7d7;
   }
   .breadcrumb-list {
@@ -38,32 +39,27 @@
     margin: 0;
     list-style: none;
   }
-
   .breadcrumb-list li + li::before {
     content: "›";
     color: #bbb;
     margin: 0 6px;
     font-weight: 900;
   }
-
   .breadcrumb-list li {
     display: flex;
     align-items: center;
     margin: 0;
     padding: 0;
   }
-
   .breadcrumb-list a {
     text-decoration: none;
     color: #ff5722;
     transition: color 0.2s ease;
   }
-
   .breadcrumb-list a:hover {
     text-decoration: underline;
     color: #ff5722;
   }
-
   .breadcrumb-list li[aria-current="page"] {
     color: #222;
     font-weight: 600;

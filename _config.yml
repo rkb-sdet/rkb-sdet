@@ -5,7 +5,7 @@ description: >-
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
 baseurl: "/rkb-sdet" # the subpath of your site, e.g. /blog
-url: "https://github.com/rkb-sdet/rkb-sdet" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://github.com/rkb-sdet" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: rkb-sdet
 
 # Build settings
@@ -30,7 +30,6 @@ jekyll-archives:
     tag: /tags/:name/
     year: /archives/:year/
     month: /archives/:year/:month/
-
 # Exclude from processing.
 # The following items will not be processed, by default.
 # exclude:

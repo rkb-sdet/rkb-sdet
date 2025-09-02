@@ -1,0 +1,518 @@
+---
+layout: default
+title: Blog
+permalink: /blog/
+---
+
+{% include navigation.html %}
+
+<!-- Blog Section -->
+<div class="blog-hero-section">
+  <div class="blog-hero-content">
+    <h1>Welcome to the Blog</h1>
+    <p>
+      Insights, tutorials, and updates from our team. Explore the latest posts,
+      browse by category, or dive into the archives.
+    </p>
+  </div>
+</div>
+
+{% include breadcrumb.html %}
+
+<section class="blog-section">
+  <!-- Left Sidebar -->
+  <div class="left-verticalMenu">
+    <h2>Blog</h2>
+    <ul>
+      <li>
+        <a href="#latest-posts">Latest Posts</a>
+        <ul class="latest-posts-list">
+          {% assign latest_posts = site.posts | sort: 'date' | reverse | slice:
+          0,5 %} {% for post in latest_posts %}
+          <li><a href="{{ post.url }}">{{ post.title | truncate: 40 }}</a></li>
+          {% endfor %}
+          <li><a href="/all-posts/" class="view-all-btn">View All Posts</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#categories">Categories</a>
+        <ul>
+          {% assign categories = site.categories | sort %} {% for category in
+          categories %}
+          <li>
+            <a href="/categories/{{ category[0] | slugify }}/"
+              >{{ category[0] }} ({{ category[1].size }})</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      <li><a href="#archives">Archives</a></li>
+    </ul>
+  </div>
+
+  <style>
+    /* Latest Posts submenu list */
+    .latest-posts-list {
+      list-style: none;
+      padding-left: 12px;
+      margin-top: 6px;
+      border-left: 2px solid #ddd;
+    }
+
+    .latest-posts-list li {
+      margin-bottom: 6px;
+    }
+
+    .latest-posts-list li a {
+      font-size: 14px;
+      font-weight: 400;
+      color: #555;
+      text-decoration: none;
+    }
+
+    .latest-posts-list li a:hover {
+      color: #007acc;
+      text-decoration: underline;
+    }
+
+    .view-all-btn {
+      font-weight: 600;
+      color: #6a89f7;
+      border-radius: 4px;
+    }
+    .view-all-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Left Sidebar Menu */
+    .left-verticalMenu ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .left-verticalMenu ul li {
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .left-verticalMenu ul li a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 4px 8px;
+      display: inline-block;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .left-verticalMenu ul li a:hover {
+      background-color: #f0f0f0;
+      color: #1920a1;
+    }
+
+    /* Submenu (Nested ul) */
+    .left-verticalMenu ul li ul {
+      margin-top: 6px;
+      margin-left: 16px;
+      padding-left: 12px;
+      border-left: 2px solid #ddd;
+      display: block; /* Hidden by default */
+    }
+
+    /* Show submenu on hover */
+    .left-verticalMenu ul li:hover > ul {
+      display: block;
+    }
+
+    /* Submenu list items */
+    .left-verticalMenu ul li ul li {
+      margin-bottom: 6px;
+    }
+
+    /* Submenu links */
+    .left-verticalMenu ul li ul li a {
+      font-size: 14px;
+      font-weight: 400;
+      color: #555;
+    }
+
+    .left-verticalMenu ul li ul li a:hover {
+      color: #007acc;
+      background-color: transparent;
+      text-decoration: underline;
+    }
+  </style>
+
+  <!-- Right Content -->
+  <div class="right-content">
+    <!-- Latest Posts -->
+    <div id="latest-posts" class="blog-section-item">
+      <h3>Latest Posts</h3>
+      <div class="blog-cards-grid">
+        {% for post in site.posts limit:9 %}
+        <div class="blog-card">
+          <a href="{{ post.url }}">
+            {% if post.image %}
+            <img
+              src="{{ post.image }}"
+              alt="{{ post.title }} image"
+              class="blog-card-img"
+            />
+            {% else %}
+            <div class="blog-card-img blog-card-img-placeholder"></div>
+            {% endif %}
+          </a>
+          <div class="blog-card-content">
+            <h4 class="blog-card-title">
+              <a href="{{ post.url }}">{{ post.title }}</a>
+            </h4>
+            <p class="blog-card-meta">
+              {{ post.date | date: "%b %d, %Y" }} | {% for category in
+              post.categories %}
+              <a
+                href="/categories/{{ category | slugify }}/"
+                class="blog-card-category"
+                >{{ category }}</a
+              >{% unless forloop.last %}, {% endunless %} {% endfor %}
+            </p>
+            <p class="blog-card-desc">
+              {{ post.excerpt | strip_html | truncate: 100 }}
+            </p>
+            <a href="{{ post.url }}" class="blog-card-readmore"
+              >Read More &rarr;</a
+            >
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div id="categories" class="blog-section-item">
+      <h3>Categories</h3>
+      <ul class="categories-list">
+        {% assign categories = site.categories | sort %} {% for category in
+        categories %}
+        <li>
+          <a href="/categories/{{ category[0] | slugify }}/"
+            >{{ category[0] }} ({{ category[1].size }})</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Removed invalid blog-card-meta block that referenced 'post' outside of a loop -->
+
+    <style>
+      .blog-card-tag {
+        color: #555;
+        text-decoration: none;
+        font-size: 12px;
+        margin-right: 6px;
+      }
+      .blog-card-tag:hover {
+        text-decoration: underline;
+      }
+    </style>
+
+    <!-- Tags -->
+    <div id="tags" class="blog-section-item">
+      <h3>Tags</h3>
+      <ul class="tags-list">
+        {% assign tags = site.tags | sort %} {% for tag in tags %}
+        <li>
+          <a href="/tags/{{ tag[0] | slugify }}/"
+            >{{ tag[0] }} ({{ tag[1].size }})</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <style>
+      .tags-list {
+        list-style: none;
+        padding: 0;
+      }
+      .tags-list li {
+        display: inline-block;
+        margin: 0 8px 8px 0;
+      }
+      .tags-list li a {
+        background: #f3f3f3;
+        padding: 4px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 13px;
+        color: #333;
+      }
+      .tags-list li a:hover {
+        background: #e0e0e0;
+      }
+    </style>
+
+    <!-- Archives -->
+    <!-- Archives -->
+    <div id="archives" class="blog-section-item">
+      <h3>Archives</h3>
+      <ul class="archives-list">
+        {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date
+        | date: '%Y'" %} {% for year in posts_by_year %}
+        <li>
+          <strong>{{ year.name }}</strong>
+          <ul>
+            {% assign posts_by_month = year.items | group_by_exp: "post",
+            "post.date | date: '%B'" %} {% for month in posts_by_month %}
+            <li>
+              <a href="/archives/{{ year.name }}/{{ month.name | downcase }}/">
+                {{ month.name }} ({{ month.items.size }})
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================
+     STYLES 
+====================== -->
+<style>
+  /* Hero Section */
+  .blog-hero-section {
+    width: 100%;
+    background: linear-gradient(90deg, #6a89f7 0%, #1920a1 100%);
+    color: #fff;
+    padding: 40px 0 30px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  .blog-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+  .blog-hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .blog-hero-content p {
+    font-size: 18px;
+    margin: 0;
+    opacity: 0.95;
+  }
+
+  /* Blog Layout */
+  .blog-section {
+    display: flex;
+    padding: 20px;
+  }
+  .left-verticalMenu {
+    width: 20%;
+    padding-right: 20px;
+    border-right: 1px solid #ccc;
+  }
+  .left-verticalMenu h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .left-verticalMenu ul {
+    list-style: none;
+    padding: 0;
+  }
+  .left-verticalMenu ul li {
+    margin-bottom: 10px;
+  }
+  .left-verticalMenu ul li a {
+    text-decoration: none;
+    color: #333;
+  }
+  .left-verticalMenu ul li a:hover {
+    text-decoration: underline;
+  }
+  .right-content {
+    width: 80%;
+    padding-left: 20px;
+  }
+  .blog-section-item {
+    margin-bottom: 40px;
+  }
+  .blog-section-item h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+  }
+
+  /* Blog Cards */
+  .blog-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 32px;
+  }
+  .blog-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+    min-height: 410px;
+  }
+  .blog-card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
+  }
+  .blog-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: #eaeaea;
+    display: block;
+  }
+  .blog-card-img-placeholder {
+    width: 100%;
+    height: 180px;
+    background: #eaeaea url("https://via.placeholder.com/400x180?text=No+Image")
+      center center/cover no-repeat;
+  }
+  .blog-card-content {
+    padding: 18px 16px 16px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-card-title {
+    font-size: 20px;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+  .blog-card-title a {
+    color: #1920a1;
+    text-decoration: none;
+  }
+  .blog-card-title a:hover {
+    text-decoration: underline;
+  }
+  .blog-card-meta {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  .blog-card-category {
+    color: #007acc;
+    text-decoration: none;
+  }
+  .blog-card-category:hover {
+    text-decoration: underline;
+  }
+  .blog-card-desc {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 14px;
+    flex: 1;
+  }
+  .blog-card-readmore {
+    font-size: 14px;
+    color: #6a89f7;
+    text-decoration: none;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  .blog-card-readmore:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .blog-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .blog-cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Categories & Archives */
+  .categories-list,
+  .archives-list {
+    list-style: none;
+    padding: 0;
+  }
+  .categories-list li,
+  .archives-list li {
+    margin-bottom: 10px;
+  }
+  .categories-list li a,
+  .archives-list li a {
+    text-decoration: none;
+    color: #007acc;
+  }
+  .categories-list li a:hover,
+  .archives-list li a:hover {
+    text-decoration: underline;
+  }
+
+  /* Timeline */
+  .timeline-item.left {
+    text-align: left;
+  }
+  .timeline-item.right {
+    text-align: right;
+  }
+
+  /* archive  */
+
+  .archives-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .archives-list li {
+    margin-bottom: 10px;
+  }
+
+  .archives-list li strong {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .archives-list ul {
+    padding-left: 20px;
+    list-style: none;
+  }
+
+  .archives-list ul li {
+    margin-bottom: 5px;
+  }
+
+  .archives-list ul li a {
+    text-decoration: none;
+    color: #007acc;
+  }
+
+  .archives-list ul li a:hover {
+    text-decoration: underline;
+  }
+
+  /* archive ends  */
+</style>
+<!-- ======================
+     SCRIPTS
+====================== -->
+<script>
+  // Add any JavaScript if needed in the future
+</script>

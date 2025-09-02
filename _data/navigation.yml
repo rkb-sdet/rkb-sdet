@@ -1,0 +1,31 @@
+- title: Portfolio
+  url: /
+  icon: fas fa-house-chimney # Modern home icon
+
+- title: About
+  url: /about/
+  icon: fas fa-user-gear # Represents a technical profile
+
+- title: Blog
+  url: /blog/ 
+  icon: fas fa-code-branch # Symbolizes coding & development insights
+
+- title: Contact
+  url: /contact/
+  icon: fas fa-envelope-open-text # Modern mail/contact
+
+- title: Projects
+  url: /projects/
+  icon: fas fa-flask # Represents experiments, testing projects
+
+- title: Resume
+  url: '/assets/DOC/RohitKumar.pdf'
+  icon: fas fa-file-code # Resume for a tech professional
+
+# - title: Services
+#   url: /services/
+#   icon: fas fa-gears            # Automation / QA services
+
+# - title: Testimonials
+#   url: /testimonials/
+#   icon: fas fa-bug              # QA/testing focused, showing bug reports

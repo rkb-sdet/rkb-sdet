@@ -1,0 +1,39 @@
+- cardNum: 1
+  title: Test Automation
+  icon: fas fa-robot
+  description: Expertise in developing robust test automation frameworks using Selenium, Cypress, and Playwright to enhance testing efficiency and coverage.
+
+- cardNum: 2
+  title: Programming Languages
+  icon: fas fa-code
+  description: Proficient in JavaScript, Python, and Java, enabling the creation of effective test scripts and automation solutions.
+
+- cardNum: 3
+  title: CI/CD Integration
+  icon: fas fa-network-wired
+  description: Skilled in integrating automated tests into CI/CD pipelines using tools like Jenkins, GitHub Actions, and GitLab CI to ensure continuous quality assurance
+
+- cardNum: 4
+  title: Performance Testing
+  icon: fas fa-tachometer-alt
+  description: Experienced in using JMeter and LoadRunner to conduct performance testing, identify bottlenecks, and optimize application performance. 
+
+- cardNum: 5
+  title: Agile & DevOps
+  icon: fas fa-sync-alt
+  description: Strong understanding of Agile methodologies and DevOps practices, facilitating effective collaboration between development and QA teams. 
+
+- cardNum: 6
+  title: Bug Tracking & Test Management
+  icon: fas fa-bug
+  description: Proficient in using JIRA, TestRail, and other tools for efficient bug tracking and test case management.
+
+- cardNum: 7
+  title: API Testing
+  icon: fas fa-plug
+  description: Skilled in API testing using Postman and REST Assured to ensure backend services function correctly and reliably.
+
+- cardNum: 8
+  title: Cross-Browser Testing
+  icon: fas fa-globe
+  description: Expertise in cross-browser testing to ensure consistent user experiences across different web browsers and devices.

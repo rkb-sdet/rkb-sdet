@@ -1,0 +1,112 @@
+---
+layout: default
+title: All Posts
+permalink: /all-posts/
+---
+
+{% include navigation.html %} {% include breadcrumb.html %}
+
+<h2 class="section-title">All Posts</h2>
+
+<div class="all-posts-grid">
+  {% for post in site.posts %}
+  <div class="post-card">
+    <a href="{{ post.url }}">
+      {% if post.image %}
+      <img
+        src="{{ post.image }}"
+        alt="{{ post.title }} image"
+        class="post-card-img"
+      />
+      {% else %}
+      <div class="post-card-img placeholder"></div>
+      {% endif %}
+    </a>
+    <div class="post-card-content">
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <p class="post-meta">{{ post.date | date: "%b %d, %Y" }}</p>
+      <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+      <a href="{{ post.url }}" class="read-more-link">Read More &rarr;</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<style>
+  .all-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .post-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 360px;
+  }
+  .post-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: #eaeaea;
+    display: block;
+  }
+  .post-card-img.placeholder {
+    background: #eaeaea url("https://via.placeholder.com/400x180?text=No+Image")
+      center center/cover no-repeat;
+  }
+  .post-card-content {
+    padding: 16px 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .post-card-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+  }
+  .post-card-content h3 a {
+    color: #1920a1;
+    text-decoration: none;
+  }
+  .post-card-content h3 a:hover {
+    text-decoration: underline;
+  }
+  .post-meta {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  .post-card-content p {
+    flex: 1;
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 12px;
+  }
+  .read-more-link {
+    font-size: 14px;
+    color: #6a89f7;
+    font-weight: 500;
+    text-decoration: none;
+    align-self: flex-start;
+  }
+  .read-more-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .all-posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .all-posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+<a href="{{ '/' | relative_url }}">Back to Home</a>

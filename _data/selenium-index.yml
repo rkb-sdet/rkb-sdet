@@ -1,0 +1,18 @@
+sections:
+  - title: "Selenium Introduction"
+    sessions:
+      - serial: "001"
+        title: "What is Selenium?"
+        url: "/selenium/2025/09/02/what-is-selenium.html"
+  - title: "Section 2: Install Java & Selenium -Get Started with basic Steps of the Selenium WebDriver"
+    sessions:
+      - serial: "002"
+        title: "Install Java & Selenium -Get Started with basic Steps of the Selenium WebDriver"
+        url: ""
+  - title: "Section 3: Locator Techniques& Tools used to identify Objects"
+    sessions:
+      - serial: "003"
+        title: "Locator Techniques& Tools used to identify Objects"
+        url: ""
+
+        

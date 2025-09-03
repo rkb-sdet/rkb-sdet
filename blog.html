@@ -29,7 +29,7 @@ permalink: /blog/
         <ul class="latest-posts-list">
           {% assign latest_posts = site.posts | sort: 'date' | reverse | slice:
           0,5 %} {% for post in latest_posts %}
-          <li><a href="{{ post.url }}">{{ post.title | truncate: 40 }}</a></li>
+          <li><a href="{{ post.url | relative_url }}">{{ post.title | truncate: 40 }}</a></li>
           {% endfor %}
           <li><a href="/all-posts/" class="view-all-btn">View All Posts</a></li>
         </ul>
@@ -153,10 +153,10 @@ permalink: /blog/
       <div class="blog-cards-grid">
         {% for post in site.posts limit:9 %}
         <div class="blog-card">
-          <a href="{{ post.url }}">
+          <a href="{{ post.url | relative_url }}">
             {% if post.image %}
             <img
-              src="{{ post.image }}"
+              src="{{ post.image | relative_url }}"
               alt="{{ post.title }} image"
               class="blog-card-img"
             />
@@ -166,7 +166,7 @@ permalink: /blog/
           </a>
           <div class="blog-card-content">
             <h4 class="blog-card-title">
-              <a href="{{ post.url }}">{{ post.title }}</a>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
             </h4>
             <p class="blog-card-meta">
               {{ post.date | date: "%b %d, %Y" }} | {% for category in
@@ -180,7 +180,7 @@ permalink: /blog/
             <p class="blog-card-desc">
               {{ post.excerpt | strip_html | truncate: 100 }}
             </p>
-            <a href="{{ post.url }}" class="blog-card-readmore"
+            <a href="{{ post.url | relative_url }}" class="blog-card-readmore"
               >Read More &rarr;</a
             >
           </div>

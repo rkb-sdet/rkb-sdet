@@ -20,7 +20,7 @@ layout: default
       <ul>
         {% for session in section.sessions %}
           <li>
-            <a href="{{ session.url }}" {% if session.url == page.url %}class="active"{% endif %}>
+            <a href="{{ session.url | relative_url }}" {% if session.url == page.url %}class="active"{% endif %}>
               <span class="nav-serial">{{ session.serial }}</span> {{ session.title }}
             </a>
           </li>
@@ -52,7 +52,7 @@ layout: default
     </p>
     {% if page.image %}
     <div class="blog-post-image">
-      <img src="{{ page.image }}" alt="{{ page.title }}" />
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" />
     </div>
     {% endif %}
 

@@ -220,6 +220,9 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   transform: scale(1.2);
 }
+.hero-image:hover {
+  transform: scale(1.25);
+}
 .social-icons {
   position: absolute;
   bottom: -30px;
@@ -314,6 +317,7 @@ body {
   width: 50%;
   padding: 20px 40px;
 }
+
 .timeline-item.left {
   left: 0;
 }
@@ -326,6 +330,10 @@ body {
   border-radius: 8px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+.timeline-content:hover {
+  scale: 1.02;
+  transition: all 0.3s ease;
 }
 .timeline-content h3 {
   margin: 0 0 6px;
@@ -398,6 +406,7 @@ body {
 }
 .card:hover {
   transform: translateY(-6px);
+  scale: 1.05;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 .icon {
@@ -414,6 +423,10 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+.icon:hover {
+  scale: 1.1;
+  transition: all 0.5s ease;
 }
 .card h3 {
   margin-top: 30px;

@@ -20,7 +20,7 @@ title: Home
       deliver reliable, scalable applications that exceed client expectations.
     </p>
     <div class="hero-buttons">
-      <a href="#" class="btn hire-btn"
+      <a href="{{ '/contact/' | relative_url }}" class="btn hire-btn"
         >Hire Me <i class="fas fa-arrow-right"></i
       ></a>
       <a
@@ -34,12 +34,14 @@ title: Home
   </div>
   <div class="hero-image-container">
     <div class="hero-image-circle"></div>
-    <img src="assets/images/rohar.png" alt="Rohit Kumar" class="hero-image" />
+    <img src="{{ 'assets/images/portfolio/rohar.png' | relative_url }}" alt="Rohit Kumar" class="hero-image" />
     <div class="social-icons">
-      <span>FOLLOW ME ON :</span>
-      <a href="#"><i class="fab fa-github"></i></a>
+      <span>FOLLOW:</span>
+      <a href="https://github.com/rkb-sdet"><i class="fab fa-github"></i></a>
       <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.linkedin.com/in/rohitkrbhardwaj96/"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
     </div>
   </div>
 </section>
@@ -114,17 +116,416 @@ title: Home
 <section class="expertise">
   <h2 class="section-title">Technical Expertise</h2>
   <div class="expertise-grid">
-
-
-      <!-- Example of rendering timeline data dynamically if needed -->
-      {% for expertise in site.data.expertise %}
-        <div class="card">
-          <div class="icon"><i class="{{ expertise.icon }}"></i></div>
-          <h3>{{ expertise.title }}</h3>
-          <p>{{ expertise.description }}</p>
-        </div>
-      {% endfor %}
+    <!-- Example of rendering timeline data dynamically if needed -->
+    {% for expertise in site.data.expertise %}
+    <div class="card">
+      <div class="icon"><i class="{{ expertise.icon }}"></i></div>
+      <h3>{{ expertise.title }}</h3>
+      <p>{{ expertise.description }}</p>
+    </div>
+    {% endfor %}
 
     <!--  -->
   </div>
 </section>
+
+<!-- Skills & Technologies Section -->
+<section class="core-skills-section">
+  <h2 class="core-skills-title">Core Skills</h2>
+  <div class="skills-grid">
+    {% for key in site.data.skills %}
+    <div class="skill-card">
+      <h3>{{ key[1].category }}</h3>
+      <ul>
+        {% for skill in key[1].skills %}
+          {% if skill.link %}
+            <li><a href="{{ skill.link | relative_url }}">{{ skill.name }}</a></li>
+          {% else %}
+            <li>{{ skill.name }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .core-skills-section {
+    padding: 40px 20px;
+    background: #f4f4f4;
+    text-align: center;
+  }
+.core-skills-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  position: relative;
+  color: #222;
+  letter-spacing: 1px;
+}
+.core-skills-title::after {
+  content: "";
+  display: block;
+  width: 6.5rem;
+  height: 4px;
+  background: #ff6600; /* accent color */
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .skill-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+  }
+  .skill-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+  .skill-card h3 {
+    margin-bottom: 10px;
+    color: #ff6600;
+  }
+  .skill-card ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+  }
+  .skill-card li {
+    margin-bottom: 6px;
+    color: #555;
+  }
+  .skill-card li a {
+    text-decoration: none;
+    color: #555;
+  }
+  .skill-card li a:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 600px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .all-posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .all-posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+<!-- Skills & Technologies Section - ends here -->
+
+
+<!-- Education Section -->
+ <section class="education-section">
+  <h2 class="education-title">Educational Background</h2>
+  <div class="education-grid">
+    <div class="edu-card">
+      <h3>Master of Computer Applications (MCA)</h3>
+      <p class="edu-school">Dr. Virendra Swarup Institute of Computer Studies, Kanpur</p>
+      <p class="edu-dates">July 2017 – June 2020</p>
+      <p class="edu-desc">
+        Specialized in Computer Science with focus on software development and testing methodologies.
+        Completed coursework in advanced programming, software engineering principles, and database management systems.
+      </p>
+    </div>
+    <div class="edu-card">
+      <h3>Bachelor of Computer Applications (BCA)</h3>
+      <p class="edu-school">Dr. Virendra Swarup Institute of Computer Studies, Kanpur</p>
+      <p class="edu-dates">July 2014 – June 2017</p>
+      <p class="edu-desc">
+        Built a strong foundation in computer science fundamentals, programming concepts, and system analysis.
+        Developed critical thinking and problem-solving skills through practical projects and assignments.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .education-section {
+  padding: 44px 0 38px 0;
+}
+
+.education-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  position: relative;
+  color: #222;
+  letter-spacing: 1px;
+}
+.education-title::after {
+  content: "";
+  display: block;
+  width: 6.5rem;
+  height: 4px;
+  background: #ff6600; /* accent color */
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.education-grid {
+  display: flex;
+  gap: 38px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 36px 2%;
+  border-radius: 22px;
+  /* box-shadow: 0 6px 36px rgba(192, 165, 63, 0.13);  */
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.edu-card {
+  flex: 1 1 390px;
+  /* background: #f9f8f5; */
+  border-radius: 11px;
+  border: 3px solid #ff6600;
+  padding: 32px 30px 24px 30px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(32,140,205,0.08); 
+  min-width: 320px;
+  max-width: 500px;
+  margin: 0;
+}
+
+.edu-card h3 {
+  font-size: 1.46rem;
+  font-weight: bold;
+  margin-bottom: 14px;
+  color: #25262b;
+}
+
+.edu-school {
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #181717;
+  margin-bottom: 6px;
+}
+
+.edu-dates {
+  font-size: 1rem;
+  color: #383735;
+  margin-bottom: 16px;
+}
+
+.edu-desc {
+  font-size: 1.08rem;
+  color: #29282a;
+  margin-top: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .education-grid {
+    flex-direction: column;
+    gap: 18px;
+    padding: 26px 1% 20px 1%;
+  }
+  .edu-card {
+    max-width: 98%;
+    margin: 0 auto;
+  }
+  .education-title {
+    font-size: 2.1rem;
+  }
+}
+@media (max-width: 480px) {
+  .education-title {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+  }
+  .edu-card {
+    padding: 24px 20px 16px 20px;
+  }
+  .edu-card h3 {
+    font-size: 1.26rem;
+    margin-bottom: 10px;
+  }
+  .edu-school {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  .edu-dates {
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+  }
+  .edu-desc {
+    font-size: 1rem;
+  }
+}
+</style>
+<!-- Education Section - ends here -->
+<!-- certification section - starts here -->
+<section class="certifications-section">
+  <h2 class="certifications-title">Professional Certifications</h2>
+  <ul class="certifications-list">
+    {% for cert in site.data.certifications %}
+    <li class="certification-item">
+      {% if cert.icon %}
+        <img class="cert-icon-img" src="{{ cert.icon | relative_url }}" alt="{{ cert.title }} icon" loading="lazy"/>
+      {% endif %}
+      <div class="cert-details">
+        <h3 class="cert-title">
+          {% if cert.link %}
+            <a href="{{ cert.link }}" target="_blank" rel="noopener noreferrer">{{ cert.title }}</a>
+          {% else %}
+            {{ cert.title }}
+          {% endif %}
+        </h3>
+        <p class="cert-description">{{ cert.description }}</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+
+
+<style>
+.certifications-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 16px;
+  background: #f4f4f4;
+  border-radius: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.certifications-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  position: relative;
+  color: #222;
+  letter-spacing: 1px;
+}
+.certifications-title::after {
+  content: "";
+  display: block;
+  width: 6.5rem;
+  height: 4px;
+  background: #ff6600;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.certifications-list {
+  list-style: none;
+  padding: 0 12px;
+  margin: 0;
+}
+.certification-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ffddb2;
+}
+.certification-item:last-child {
+  border-bottom: none;
+}
+
+.cert-icon-img {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  margin-right: 18px;
+  margin-top: 2px;
+  object-fit: contain;
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: 0 0 5px #fae3b8, 0 1px 7px #f9e3b880;
+}
+
+.cert-details {
+  flex: 1;
+}
+
+.cert-title {
+  font-size: 1.36rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: #7a4100;
+  line-height: 1.2;
+}
+.cert-title a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.cert-title a:hover,
+.cert-title a:focus {
+  border-color: #27ae60;
+  outline: none;
+}
+.cert-description {
+  font-size: 1.05rem;
+  color: #4a3a00;
+  margin: 0;
+  line-height: 1.5;
+  max-width: 800px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .certifications-section {
+    padding: 36px 12px;
+  }
+  .cert-title {
+    font-size: 1.18rem;
+  }
+  .cert-icon-img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  .cert-description {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 400px) {
+  .certifications-title{
+    font-size: 1.4rem;
+    margin-bottom: 32px;
+  }
+  .certification-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .cert-icon-img {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .cert-title {
+    font-size: 1.2rem;
+  }
+}
+
+
+</style>
+
+<!-- certification section - ends here -->

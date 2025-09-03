@@ -1,0 +1,41 @@
+testing_methodologies:
+  category: "Testing Methodologies"
+  skills:
+    - name: Functional Testing
+      link: /categories/functional-testing/
+    - name: Regression Testing
+      link: /categories/regression-testing/
+    - name: Integration Testing
+      link: /categories/integration-testing/
+    - name: Performance Testing
+      link: /categories/performance-testing/
+    - name: Exploratory Testing
+      link: /categories/exploratory-testing/
+
+programming_scripting:
+  category: "Programming & Scripting"
+  skills:
+    - name: Java
+      link: /categories/java/
+    - name: JavaScript
+      link: /categories/javascript/
+    - name: HTML/CSS
+      link: /categories/html-css/
+    - name: jQuery
+      link: /categories/jquery/
+    - name: JSON/XML
+      link: /categories/json-xml/
+
+tools_technologies:
+  category: "Tools & Technologies"
+  skills:
+    - name: Selenium
+      link: /categories/selenium/
+    - name: Cypress.io
+      link: /categories/cypress-io/
+    - name: Jenkins, AWS, Docker, Ansible
+      link: "#"
+    - name: JIRA/Confluence
+      link: "#"
+    - name: Agile Methodology
+      link: /categories/agile-methodology/

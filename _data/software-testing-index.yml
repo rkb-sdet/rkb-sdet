@@ -4,7 +4,7 @@ sections:
     sessions:
       - serial: "001"
         title: "What is Software Testing?"
-        url: "/software%20testing/2025/09/01/What-is-software-testing.html"
+        url: "/software%20testing/2025/09/02/what-is-software-testing.html"
       - serial: "002"
         title: "Why Software Testing is Required"
         url: "/software%20testing/2025/09/02/Why-software-testing-is-required.html"

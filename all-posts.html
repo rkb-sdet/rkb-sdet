@@ -11,10 +11,10 @@ permalink: /all-posts/
 <div class="all-posts-grid">
   {% for post in site.posts %}
   <div class="post-card">
-    <a href="{{ post.url }}">
+    <a href="{{ post.url | relative_url }}">
       {% if post.image %}
       <img
-        src="{{ post.image }}"
+        src="{{ post.image | relative_url }}"
         alt="{{ post.title }} image"
         class="post-card-img"
       />
@@ -23,10 +23,10 @@ permalink: /all-posts/
       {% endif %}
     </a>
     <div class="post-card-content">
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
       <p class="post-meta">{{ post.date | date: "%b %d, %Y" }}</p>
       <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
-      <a href="{{ post.url }}" class="read-more-link">Read More &rarr;</a>
+      <a href="{{ post.url | relative_url }}" class="read-more-link">Read More &rarr;</a>
     </div>
   </div>
   {% endfor %}
@@ -34,9 +34,11 @@ permalink: /all-posts/
 
 <style>
   .all-posts-grid {
+    margin-left: 5%;
+    max-width: 90%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 40px;
   }
   .post-card {
     background: #fff;
@@ -109,4 +111,4 @@ permalink: /all-posts/
     }
   }
 </style>
-<a href="{{ '/' | relative_url }}">Back to Home</a>
+<a style="margin: 5%;" href="{{ '/' | relative_url }}">Back to Home</a>

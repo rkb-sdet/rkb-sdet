@@ -1,0 +1,24 @@
+- title: "The Complete JavaScript Course: From Zero to Expert"
+  description: "Comprehensive training in JavaScript programming, covering everything from basic syntax to advanced concepts like asynchronous programming, ES6+ features, and modern JavaScript frameworks."
+  link: "https://example.com/verify/js-course"
+  icon: "/assets/images/portfolio/js.png" # Use your static path or copy from FlatIcon
+
+- title: "End-to-End JavaScript Testing with Cypress.io"
+  description: "Specialized certification in Cypress.io testing framework, covering test automation best practices, integration with CI/CD pipelines, and advanced techniques for reliable end-to-end testing."
+  link: "https://example.com/verify/cypress"
+  icon: "/assets/images/portfolio/cypress.png"
+
+- title: "DevOps Fundamentals - CI/CD with AWS + Docker + Ansible + Jenkins"
+  description: "Comprehensive training in DevOps practices, focusing on implementing continuous integration and continuous delivery pipelines using AWS, Docker containers, Ansible for configuration management, and Jenkins for automation."
+  link: "https://example.com/verify/devops"
+  icon: "/assets/images/portfolio/devops.png"
+
+- title: "jQuery - Complete jQuery Course From Beginner To Advanced"
+  description: "In-depth training on jQuery library, covering DOM manipulation, event handling, AJAX, and developing interactive web applications with jQuery."
+  link: "https://example.com/verify/jquery"
+  icon: "/assets/images/portfolio/jquery.png"
+
+- title: "Ethics in the Age of Generative AI"
+  description: "Certification focused on ethical considerations and best practices when working with generative AI technologies, including responsible AI implementation and potential impacts on testing methodologies."
+  link: "https://example.com/verify/ethics"
+  icon: "/assets/images/portfolio/ethics.png"

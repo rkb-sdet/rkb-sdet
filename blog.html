@@ -6,6 +6,17 @@ permalink: /blog/
 
 {% include navigation.html %}
 
+<!-- Toggle button for mobile sidebar -->
+<button
+  id="sidebarToggle"
+  aria-label="Toggle sidebar menu"
+  aria-expanded="false"
+  aria-controls="leftMenu"
+  class="sidebar-toggle-btn"
+>
+  &#9776;
+</button>
+
 <!-- Blog Section -->
 <div class="blog-hero-section">
   <div class="blog-hero-content">
@@ -21,7 +32,7 @@ permalink: /blog/
 
 <section class="blog-section">
   <!-- Left Sidebar -->
-  <div class="left-verticalMenu">
+  <div id="leftMenu" class="left-verticalMenu">
     <h2>Blog</h2>
     <ul>
       <li>
@@ -29,9 +40,17 @@ permalink: /blog/
         <ul class="latest-posts-list">
           {% assign latest_posts = site.posts | sort: 'date' | reverse | slice:
           0,5 %} {% for post in latest_posts %}
-          <li><a href="{{ post.url | relative_url }}">{{ post.title | truncate: 40 }}</a></li>
+          <li>
+            <a href="{{ post.url | relative_url }}"
+              >{{ post.title | truncate: 40 }}</a
+            >
+          </li>
           {% endfor %}
-          <li><a href="/all-posts/" class="view-all-btn">View All Posts</a></li>
+          <li>
+            <a href="{{ '/all-posts/' | relative_url }}" class="view-all-btn"
+              >View All Posts</a
+            >
+          </li>
         </ul>
       </li>
       <li>
@@ -50,100 +69,6 @@ permalink: /blog/
       <li><a href="#archives">Archives</a></li>
     </ul>
   </div>
-
-  <style>
-    /* Latest Posts submenu list */
-    .latest-posts-list {
-      list-style: none;
-      padding-left: 12px;
-      margin-top: 6px;
-      border-left: 2px solid #ddd;
-    }
-
-    .latest-posts-list li {
-      margin-bottom: 6px;
-    }
-
-    .latest-posts-list li a {
-      font-size: 14px;
-      font-weight: 400;
-      color: #555;
-      text-decoration: none;
-    }
-
-    .latest-posts-list li a:hover {
-      color: #007acc;
-      text-decoration: underline;
-    }
-
-    .view-all-btn {
-      font-weight: 600;
-      color: #6a89f7;
-      border-radius: 4px;
-    }
-    .view-all-btn:hover {
-      text-decoration: underline;
-    }
-
-    /* Left Sidebar Menu */
-    .left-verticalMenu ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-
-    .left-verticalMenu ul li {
-      margin-bottom: 10px;
-      position: relative;
-    }
-
-    .left-verticalMenu ul li a {
-      color: #333;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 4px 8px;
-      display: inline-block;
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-    }
-
-    .left-verticalMenu ul li a:hover {
-      background-color: #f0f0f0;
-      color: #1920a1;
-    }
-
-    /* Submenu (Nested ul) */
-    .left-verticalMenu ul li ul {
-      margin-top: 6px;
-      margin-left: 16px;
-      padding-left: 12px;
-      border-left: 2px solid #ddd;
-      display: block; /* Hidden by default */
-    }
-
-    /* Show submenu on hover */
-    .left-verticalMenu ul li:hover > ul {
-      display: block;
-    }
-
-    /* Submenu list items */
-    .left-verticalMenu ul li ul li {
-      margin-bottom: 6px;
-    }
-
-    /* Submenu links */
-    .left-verticalMenu ul li ul li a {
-      font-size: 14px;
-      font-weight: 400;
-      color: #555;
-    }
-
-    .left-verticalMenu ul li ul li a:hover {
-      color: #007acc;
-      background-color: transparent;
-      text-decoration: underline;
-    }
-  </style>
 
   <!-- Right Content -->
   <div class="right-content">
@@ -204,20 +129,6 @@ permalink: /blog/
       </ul>
     </div>
 
-    <!-- Removed invalid blog-card-meta block that referenced 'post' outside of a loop -->
-
-    <style>
-      .blog-card-tag {
-        color: #555;
-        text-decoration: none;
-        font-size: 12px;
-        margin-right: 6px;
-      }
-      .blog-card-tag:hover {
-        text-decoration: underline;
-      }
-    </style>
-
     <!-- Tags -->
     <div id="tags" class="blog-section-item">
       <h3>Tags</h3>
@@ -231,29 +142,7 @@ permalink: /blog/
         {% endfor %}
       </ul>
     </div>
-    <style>
-      .tags-list {
-        list-style: none;
-        padding: 0;
-      }
-      .tags-list li {
-        display: inline-block;
-        margin: 0 8px 8px 0;
-      }
-      .tags-list li a {
-        background: #f3f3f3;
-        padding: 4px 10px;
-        border-radius: 4px;
-        text-decoration: none;
-        font-size: 13px;
-        color: #333;
-      }
-      .tags-list li a:hover {
-        background: #e0e0e0;
-      }
-    </style>
 
-    <!-- Archives -->
     <!-- Archives -->
     <div id="archives" class="blog-section-item">
       <h3>Archives</h3>
@@ -266,9 +155,9 @@ permalink: /blog/
             {% assign posts_by_month = year.items | group_by_exp: "post",
             "post.date | date: '%B'" %} {% for month in posts_by_month %}
             <li>
-              <a href="/archives/{{ year.name }}/{{ month.name | downcase }}/">
-                {{ month.name }} ({{ month.items.size }})
-              </a>
+              <a href="/archives/{{ year.name }}/{{ month.name | downcase }}/"
+                >{{ month.name }} ({{ month.items.size }})</a
+              >
             </li>
             {% endfor %}
           </ul>
@@ -280,7 +169,7 @@ permalink: /blog/
 </section>
 
 <!-- ======================
-     STYLES 
+     STYLES
 ====================== -->
 <style>
   /* Hero Section */
@@ -310,11 +199,25 @@ permalink: /blog/
     opacity: 0.95;
   }
 
-  /* Blog Layout */
+  /* Layout */
   .blog-section {
     display: flex;
     padding: 20px;
   }
+
+  /* Sidebar toggle button */
+  .sidebar-toggle-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    color: #005792;
+  }
+
+  /* Left Sidebar */
   .left-verticalMenu {
     width: 20%;
     padding-right: 20px;
@@ -338,6 +241,15 @@ permalink: /blog/
   .left-verticalMenu ul li a:hover {
     text-decoration: underline;
   }
+  .left-verticalMenu ul ul {
+    padding-left: 15px;
+  }
+  .left-verticalMenu > ul > li > a {
+    color: #ff5722;
+    font-weight: 600;
+  }
+
+  /* Right Content */
   .right-content {
     width: 80%;
     padding-left: 20px;
@@ -433,18 +345,6 @@ permalink: /blog/
     text-decoration: underline;
   }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .blog-cards-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 600px) {
-    .blog-cards-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
   /* Categories & Archives */
   .categories-list,
   .archives-list {
@@ -465,54 +365,127 @@ permalink: /blog/
     text-decoration: underline;
   }
 
-  /* Timeline */
-  .timeline-item.left {
-    text-align: left;
-  }
-  .timeline-item.right {
-    text-align: right;
-  }
-
-  /* archive  */
-
-  .archives-list {
+  /* Tags */
+  .tags-list {
     list-style: none;
     padding: 0;
   }
-
-  .archives-list li {
-    margin-bottom: 10px;
+  .tags-list li {
+    display: inline-block;
+    margin: 0 8px 8px 0;
   }
-
-  .archives-list li strong {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  .archives-list ul {
-    padding-left: 20px;
-    list-style: none;
-  }
-
-  .archives-list ul li {
-    margin-bottom: 5px;
-  }
-
-  .archives-list ul li a {
+  .tags-list li a {
+    background: #f3f3f3;
+    padding: 4px 10px;
+    border-radius: 4px;
     text-decoration: none;
-    color: #007acc;
+    font-size: 13px;
+    color: #333;
+  }
+  .tags-list li a:hover {
+    background: #e0e0e0;
   }
 
-  .archives-list ul li a:hover {
-    text-decoration: underline;
+  /* Responsive */
+  @media (max-width: 900px) {
+    /* Stack layout vertically */
+    .blog-section {
+      flex-direction: column;
+      padding: 20px 10px;
+    }
+
+    .sidebar-toggle-btn {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    /* Sidebar becomes off-canvas */
+    .left-verticalMenu {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 250px;
+      height: calc(100vh - 60px);
+      background: #f9f9fa;
+      padding: 20px;
+      transform: translateX(-260px);
+      transition: transform 0.3s ease;
+      z-index: 9999;
+      border-right: 1px solid #ccc;
+      overflow-y: auto;
+    }
+
+    .left-verticalMenu.active {
+      transform: translateX(0);
+    }
+
+    /* Right content fills full width */
+    .right-content {
+      width: 100% !important;
+      padding-left: 0 !important;
+      margin-top: 10px;
+    }
   }
 
-  /* archive ends  */
+  @media (min-width: 901px) {
+    .left-verticalMenu {
+      position: relative;
+      transform: translateX(0);
+      width: 20%;
+      border-right: 1px solid #ccc;
+      height: auto;
+      overflow: visible;
+    }
+    .sidebar-toggle-btn {
+      display: none;
+    }
+    .right-content {
+      width: 80%;
+      padding-left: 20px;
+      margin-top: 0;
+    }
+  }
+  @media (max-width: 700px) {
+    .blog-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+  @media (max-width: 500px) {
+    .blog-cards-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .left-verticalMenu > ul > li > a {
+      color: #ff5722;
+    }
+    .left-verticalMenu ul ul {
+      padding-left: 15px;
+    }
+  }
 </style>
-<!-- ======================
-     SCRIPTS
-====================== -->
+
 <script>
-  // Add any JavaScript if needed in the future
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("leftMenu");
+    const toggleBtn = document.getElementById("sidebarToggle");
+
+    toggleBtn.addEventListener("click", function () {
+      const isActive = sidebar.classList.toggle("active");
+      toggleBtn.setAttribute("aria-expanded", isActive);
+    });
+
+    // Close sidebar on outside click (optional)
+    document.addEventListener("click", function (e) {
+      if (
+        !sidebar.contains(e.target) &&
+        !toggleBtn.contains(e.target) &&
+        sidebar.classList.contains("active")
+      ) {
+        sidebar.classList.remove("active");
+        toggleBtn.setAttribute("aria-expanded", false);
+      }
+    });
+  });
 </script>
+

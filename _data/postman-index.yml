@@ -1,0 +1,16 @@
+sections:
+  - title: "Introduction to Postman tool for testing APIs in collection"
+    sessions:
+      - serial: "001"
+        title: "Introduction to Postman tool and its features"
+        url: "/postman/2025/09/03/introduction-to-postman.html"
+  - title: "API Testing Basics with Postman"
+    sessions:
+      - serial: "002"
+        title: "Learn API Testing Basics with Postman"
+        url: "/postman/2025/09/03/learn-api-testing-basics.html"
+  - title: "Section 3: Locator Techniques& Tools used to identify Objects"
+    sessions:
+      - serial: "003"
+        title: "Locator Techniques& Tools used to identify Objects"
+        url: ""

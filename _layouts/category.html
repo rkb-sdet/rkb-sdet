@@ -1,15 +1,65 @@
 ---
 layout: default
 ---
-<h1>Posts in category: {{ page.category }}</h1>
-<ul>
-{% for post in site.categories[page.category] %}
-  <li>
-    <a href="{{ post.url | relative_url }}">{{ post.title }}</a> - {{ post.date | date: "%b %d, %Y" }}
-  </li>
-{% endfor %}
-</ul>
-{% if site.categories[page.category].size == 0 %}
-  <p>No posts found in this category.</p>
-{% endif %}
-<a href="{{ '/' | relative_url }}">Back to Home</a>
+
+<div class="category-page">
+  <h1>{{ page.title }}</h1>
+  <div class="card-list">
+    {% assign cat = page.category %} {% for post in site.categories[cat] %}
+    <div class="card">
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p>
+        {% if post.excerpt %} {{ post.excerpt | strip_html | truncatewords: 40,
+        '...' }} {% else %} {{ post.content | strip_html | truncatewords: 40,
+        '...' }} {% endif %}
+      </p>
+      <span>{{ post.date | date: "%b %d, %Y" }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .category-page {
+    width: 70%;
+    /* background-color: aliceblue; */
+    margin: 2rem auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  .category-page h1 {
+    text-transform: uppercase;
+  }
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: 60%;
+    margin: 10px 20%;
+    /* max-width: 600px; */
+  }
+  .card h2 {
+    margin-top: 0;
+  }
+  .card-img {
+    max-width: 100%;
+    margin: 0.5rem 0;
+    border-radius: 6px;
+  }
+  .card p {
+    color: #333;
+  }
+  .card span {
+    font-size: 0.8rem;
+    color: #666;
+  }
+</style>

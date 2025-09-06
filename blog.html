@@ -28,15 +28,13 @@ permalink: /blog/
   </div>
 </div>
 
-{% include breadcrumb.html %}
-
 <section class="blog-section">
   <!-- Left Sidebar -->
   <div id="leftMenu" class="left-verticalMenu">
     <h2>Blog</h2>
     <ul>
       <li>
-        <a href="#latest-posts">Latest Posts</a>
+        <a href="#latest-posts" style="color: #ff5722"><b>Latest Posts</b></a>
         <ul class="latest-posts-list">
           {% assign latest_posts = site.posts | sort: 'date' | reverse | slice:
           0,5 %} {% for post in latest_posts %}
@@ -54,19 +52,21 @@ permalink: /blog/
         </ul>
       </li>
       <li>
-        <a href="#categories">Categories</a>
+        <a href="#categories"><b>Categories</b></a>
         <ul>
           {% assign categories = site.categories | sort %} {% for category in
-          categories %}
+          categories %} {% assign cat_name = category[0] %}
           <li>
-            <a href="/categories/{{ category[0] | slugify }}/"
-              >{{ category[0] }} ({{ category[1].size }})</a
-            >
+            <a href="{{ site.baseurl }}/categories/{{ cat_name | slugify }}/">
+              {{ cat_name }} ({{ category[1].size }})
+            </a>
           </li>
           {% endfor %}
         </ul>
       </li>
-      <li><a href="#archives">Archives</a></li>
+      <li>
+        <a href="#archives" style="color: #ff5722"><b>Archives</b></a>
+      </li>
     </ul>
   </div>
 
@@ -76,7 +76,7 @@ permalink: /blog/
     <div id="latest-posts" class="blog-section-item">
       <h3>Latest Posts</h3>
       <div class="blog-cards-grid">
-        {% for post in site.posts limit:9 %}
+        {% for post in site.posts limit:6 %}
         <div class="blog-card">
           <a href="{{ post.url | relative_url }}">
             {% if post.image %}
@@ -168,304 +168,8 @@ permalink: /blog/
   </div>
 </section>
 
-<!-- ======================
-     STYLES
-====================== -->
-<style>
-  /* Hero Section */
-  .blog-hero-section {
-    width: 100%;
-    background: linear-gradient(90deg, #6a89f7 0%, #1920a1 100%);
-    color: #fff;
-    padding: 40px 0 30px 0;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-  .blog-hero-content {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
-    text-align: center;
-  }
-  .blog-hero-content h1 {
-    font-size: 36px;
-    margin-bottom: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-  .blog-hero-content p {
-    font-size: 18px;
-    margin: 0;
-    opacity: 0.95;
-  }
-
-  /* Layout */
-  .blog-section {
-    display: flex;
-    padding: 20px;
-  }
-
-  /* Sidebar toggle button */
-  .sidebar-toggle-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    font-size: 26px;
-    cursor: pointer;
-    padding: 8px 12px;
-    margin-bottom: 8px;
-    color: #005792;
-  }
-
-  /* Left Sidebar */
-  .left-verticalMenu {
-    width: 20%;
-    padding-right: 20px;
-    border-right: 1px solid #ccc;
-  }
-  .left-verticalMenu h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  .left-verticalMenu ul {
-    list-style: none;
-    padding: 0;
-  }
-  .left-verticalMenu ul li {
-    margin-bottom: 10px;
-  }
-  .left-verticalMenu ul li a {
-    text-decoration: none;
-    color: #333;
-  }
-  .left-verticalMenu ul li a:hover {
-    text-decoration: underline;
-  }
-  .left-verticalMenu ul ul {
-    padding-left: 15px;
-  }
-  .left-verticalMenu > ul > li > a {
-    color: #ff5722;
-    font-weight: 600;
-  }
-
-  /* Right Content */
-  .right-content {
-    width: 80%;
-    padding-left: 20px;
-  }
-  .blog-section-item {
-    margin-bottom: 40px;
-  }
-  .blog-section-item h3 {
-    font-size: 22px;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #333;
-    padding-bottom: 5px;
-  }
-
-  /* Blog Cards */
-  .blog-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    margin-bottom: 32px;
-  }
-  .blog-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: box-shadow 0.2s;
-    min-height: 410px;
-  }
-  .blog-card:hover {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
-  }
-  .blog-card-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    background: #eaeaea;
-    display: block;
-  }
-  .blog-card-img-placeholder {
-    width: 100%;
-    height: 180px;
-    background: #eaeaea url("https://via.placeholder.com/400x180?text=No+Image")
-      center center/cover no-repeat;
-  }
-  .blog-card-content {
-    padding: 18px 16px 16px 16px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  .blog-card-title {
-    font-size: 20px;
-    margin: 0 0 8px 0;
-    font-weight: 600;
-  }
-  .blog-card-title a {
-    color: #1920a1;
-    text-decoration: none;
-  }
-  .blog-card-title a:hover {
-    text-decoration: underline;
-  }
-  .blog-card-meta {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 10px;
-  }
-  .blog-card-category {
-    color: #007acc;
-    text-decoration: none;
-  }
-  .blog-card-category:hover {
-    text-decoration: underline;
-  }
-  .blog-card-desc {
-    font-size: 15px;
-    color: #444;
-    margin-bottom: 14px;
-    flex: 1;
-  }
-  .blog-card-readmore {
-    font-size: 14px;
-    color: #6a89f7;
-    text-decoration: none;
-    font-weight: 500;
-    align-self: flex-start;
-    margin-top: auto;
-  }
-  .blog-card-readmore:hover {
-    text-decoration: underline;
-  }
-
-  /* Categories & Archives */
-  .categories-list,
-  .archives-list {
-    list-style: none;
-    padding: 0;
-  }
-  .categories-list li,
-  .archives-list li {
-    margin-bottom: 10px;
-  }
-  .categories-list li a,
-  .archives-list li a {
-    text-decoration: none;
-    color: #007acc;
-  }
-  .categories-list li a:hover,
-  .archives-list li a:hover {
-    text-decoration: underline;
-  }
-
-  /* Tags */
-  .tags-list {
-    list-style: none;
-    padding: 0;
-  }
-  .tags-list li {
-    display: inline-block;
-    margin: 0 8px 8px 0;
-  }
-  .tags-list li a {
-    background: #f3f3f3;
-    padding: 4px 10px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 13px;
-    color: #333;
-  }
-  .tags-list li a:hover {
-    background: #e0e0e0;
-  }
-
-  /* Responsive */
-  @media (max-width: 900px) {
-    /* Stack layout vertically */
-    .blog-section {
-      flex-direction: column;
-      padding: 20px 10px;
-    }
-
-    .sidebar-toggle-btn {
-      display: block;
-      margin-bottom: 16px;
-    }
-
-    /* Sidebar becomes off-canvas */
-    .left-verticalMenu {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 250px;
-      height: calc(100vh - 60px);
-      background: #f9f9fa;
-      padding: 20px;
-      transform: translateX(-260px);
-      transition: transform 0.3s ease;
-      z-index: 9999;
-      border-right: 1px solid #ccc;
-      overflow-y: auto;
-    }
-
-    .left-verticalMenu.active {
-      transform: translateX(0);
-    }
-
-    /* Right content fills full width */
-    .right-content {
-      width: 100% !important;
-      padding-left: 0 !important;
-      margin-top: 10px;
-    }
-  }
-
-  @media (min-width: 901px) {
-    .left-verticalMenu {
-      position: relative;
-      transform: translateX(0);
-      width: 20%;
-      border-right: 1px solid #ccc;
-      height: auto;
-      overflow: visible;
-    }
-    .sidebar-toggle-btn {
-      display: none;
-    }
-    .right-content {
-      width: 80%;
-      padding-left: 20px;
-      margin-top: 0;
-    }
-  }
-  @media (max-width: 700px) {
-    .blog-cards-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-  }
-  @media (max-width: 500px) {
-    .blog-cards-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    .left-verticalMenu > ul > li > a {
-      color: #ff5722;
-    }
-    .left-verticalMenu ul ul {
-      padding-left: 15px;
-    }
-  }
-</style>
-
 <script>
+  // Blog Home Page: left navigation toggle
   document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("leftMenu");
     const toggleBtn = document.getElementById("sidebarToggle");
@@ -488,4 +192,3 @@ permalink: /blog/
     });
   });
 </script>
-

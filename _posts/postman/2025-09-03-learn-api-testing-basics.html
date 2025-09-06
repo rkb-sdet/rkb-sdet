@@ -1,0 +1,358 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+categories: postman
+tags: ["software testing", "automation", "api testing", "postman"]
+image: "/assets/images/postman/postman.png"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">API Testing Basics</h1>
+
+    <h2 class="post-heading-h2">Introduction to API</h2>
+    <p>
+      API stands for <strong>Application Programming Interface</strong>. In
+      simple terms, an API acts as an interface or communication protocol
+      between the <em>client (frontend)</em> and the
+      <em>server (backend)</em> in a software system.
+    </p>
+    <p>
+      The role of an API is to simplify the interaction between different
+      software components, often written in different programming languages or
+      frameworks, by providing a standard way to exchange data.
+    </p>
+
+    <h2 class="post-heading-h2">Why Do We Need APIs?</h2>
+    <ul>
+      <li>
+        APIs solve the problem of different technologies on frontend and backend
+        needing to communicate. For example:
+        <ul>
+          <li>
+            Frontend might be developed using
+            <strong>Angular (TypeScript)</strong>.
+          </li>
+          <li>
+            Backend might be developed in <strong>Java</strong>, with a database
+            storing data.
+          </li>
+        </ul>
+      </li>
+      <li>
+        APIs provide a language-agnostic, standard way (usually over HTTP) for
+        clients and servers to talk.
+      </li>
+      <li>
+        APIs enable third-party integrations, such as letting
+        <em>hotels.com</em> display availability from
+        <em>Marriott Hotels</em> without sharing backend code.
+      </li>
+    </ul>
+
+    <h2 class="post-heading-h2">How APIs Work: Basic Flow</h2>
+    <p>Consider a hotel booking system:</p>
+    <ul>
+      <li>
+        The frontend collects booking details (e.g., check-in, check-out dates).
+      </li>
+      <li>
+        These details are sent to an API on the backend server, which processes
+        the request.
+      </li>
+      <li>The backend creates or fetches the reservation in the database.</li>
+      <li>
+        The API responds to the frontend with confirmation details (e.g.,
+        reservation ID).
+      </li>
+    </ul>
+
+    <div
+      class="svg-container"
+      aria-label="API Architecture Diagram"
+      style="text-align: center; margin: 20px 0"
+    >
+      <svg
+        width="600"
+        height="300"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-labelledby="svgTitle svgDesc"
+      >
+        <title id="svgTitle">API Architecture Diagram</title>
+        <desc id="svgDesc">
+          Diagram showing client, API layer, backend server, and database
+          interaction with arrows
+        </desc>
+        <style>
+          .box {
+            fill: #f0f8ff;
+            stroke: #333;
+            stroke-width: 1px;
+          }
+          .arrow {
+            stroke: #333;
+            stroke-width: 2px;
+            fill: none;
+            marker-end: url(#arrowhead);
+          }
+          .text {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+          }
+        </style>
+        <defs>
+          <marker
+            id="arrowhead"
+            markerWidth="10"
+            markerHeight="7"
+            refX="10"
+            refY="3.5"
+            orient="auto"
+          >
+            <polygon points="0 0, 10 3.5, 0 7" />
+          </marker>
+        </defs>
+        <!-- Client -->
+        <rect x="20" y="100" width="120" height="60" class="box" />
+        <text x="80" y="90" text-anchor="middle" class="text">
+          Client (Frontend)
+        </text>
+        <text x="80" y="135" text-anchor="middle" class="text">
+          (Angular, TypeScript)
+        </text>
+        <!-- API Layer -->
+        <rect x="220" y="90" width="140" height="90" class="box" />
+        <text x="290" y="80" text-anchor="middle" class="text">
+          API (Middle Layer)
+        </text>
+        <text x="290" y="105" text-anchor="middle" class="text">
+          Communication
+        </text>
+        <text x="290" y="125" text-anchor="middle" class="text">Protocol</text>
+        <!-- Backend -->
+        <rect x="440" y="100" width="120" height="60" class="box" />
+        <text x="500" y="90" text-anchor="middle" class="text">
+          Backend Server
+        </text>
+        <text x="500" y="135" text-anchor="middle" class="text">
+          (Java, Database)
+        </text>
+        <!-- Arrows -->
+        <path d="M 140 125 L 220 125" class="arrow" />
+        <path d="M 360 125 L 440 125" class="arrow" />
+        <path d="M 440 140 L 360 140" class="arrow" />
+        <path d="M 220 140 L 140 140" class="arrow" />
+        <!-- Database -->
+        <rect x="440" y="220" width="120" height="80" class="box" />
+        <text x="500" y="265" text-anchor="middle" class="text">Database</text>
+        <path d="M 500 160 L 500 220" class="arrow" />
+        <path d="M 500 170 L 500 160" class="arrow" />
+      </svg>
+    </div>
+
+    <h2 class="post-heading-h2">Common API Design Constraints</h2>
+    <ul>
+      <li>APIs are exposed as endpoints (URLs) on servers.</li>
+      <li>Communication protocol used is generally HTTP.</li>
+      <li>Data format for request and response is commonly JSON or XML.</li>
+      <li>APIs abstract backend methods to be language-neutral and secure.</li>
+    </ul>
+
+    <h2 class="post-heading-h2">Common HTTP Methods in REST APIs</h2>
+    <table
+      role="table"
+      style="width: 100%; border-collapse: collapse; margin: 15px 0"
+    >
+      <thead style="background-color: #eaf9ff; color: #004466">
+        <tr>
+          <th
+            style="border: 1px solid #ddd; padding: 8px 12px; text-align: left"
+          >
+            Method
+          </th>
+          <th
+            style="border: 1px solid #ddd; padding: 8px 12px; text-align: left"
+          >
+            Purpose
+          </th>
+          <th
+            style="border: 1px solid #ddd; padding: 8px 12px; text-align: left"
+          >
+            Example Usage
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            <strong>GET</strong>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            Retrieve data from server
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            Get details of an existing reservation by ID
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            <strong>POST</strong>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            Create a new resource on server
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            Submit booking details to create a reservation
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            <strong>PUT</strong>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            Update a resource completely or partially
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            Update the address of a booking/reservation
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            <strong>DELETE</strong>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            Remove a resource
+          </td>
+          <td style="border: 1px solid #ddd; padding: 8px 12px">
+            Delete a booking or place
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="post-heading-h2">Resource & Parameter Concepts</h2>
+    <ul>
+      <li>
+        <strong>Resource:</strong> Represents a specific API functionality or
+        data (e.g., "maps" in Google Maps API).
+      </li>
+      <li>
+        <strong>Path Parameters:</strong> Used to specify or drill down to a
+        specific resource item (e.g., /orders/{orderId}).
+      </li>
+      <li>
+        <strong>Query Parameters:</strong> Used to filter or sort results, added
+        after '?' in URL (e.g., ?key=value).
+      </li>
+    </ul>
+
+    <h2 class="post-heading-h2">Headers and Cookies</h2>
+    <p>
+      Headers and cookies carry metadata or additional information required by
+      the API, such as:
+    </p>
+    <ul>
+      <li>Authentication or authorization details (tokens, API keys).</li>
+      <li>
+        Content-Type indicating data format being sent (e.g., application/json).
+      </li>
+      <li>Session cookies for maintaining user state.</li>
+    </ul>
+
+    <h2 class="post-heading-h2">Manual API Testing with Postman: Example</h2>
+    <p>
+      Consider a Google Maps-like API with multiple endpoints for place
+      management:
+    </p>
+    <ul>
+      <li>
+        <strong>Add Place (POST):</strong> Submits data about a new place (name,
+        location, phone, etc.) in JSON format.
+      </li>
+      <li>
+        <strong>Get Place (GET):</strong> Retrieves details of a place by its
+        unique ID.
+      </li>
+      <li>
+        <strong>Update Place (PUT):</strong> Updates existing place details like
+        address.
+      </li>
+      <li>
+        <strong>Delete Place (DELETE):</strong> Removes a place from the
+        records.
+      </li>
+    </ul>
+    <p>Each API requires a contract that defines:</p>
+    <ul>
+      <li>Base URL</li>
+      <li>Resource paths</li>
+      <li>HTTP methods</li>
+      <li>Request body format and parameters</li>
+      <li>Expected responses</li>
+    </ul>
+
+    <h3 class="post-heading-h3">Example: Add Place API Request Parameters</h3>
+    <pre role="region" aria-label="Example Add Place API Request Parameters">
+{
+  "location": {
+    "lat": -38.383494,
+    "lng": 33.427362
+  },
+  "accuracy": 50,
+  "name": "Rahul's Room",
+  "phone_number": "+91 9999999999",
+  "address": "29, side layout, cohen 09",
+  "types": ["shoe park", "shop"],
+  "website": "http://rahulshettyacademy.com",
+  "language": "French-IN"
+}
+    </pre>
+
+    <h3 class="post-heading-h3">Steps to Test in Postman</h3>
+    <ol>
+      <li>Set the full endpoint URL (base URL + resource path).</li>
+      <li>Select HTTP method (e.g., POST for adding place).</li>
+      <li>Add authentication keys or query parameters if required.</li>
+      <li>
+        Set request body (usually JSON) in "Raw" tab with application/json
+        header.
+      </li>
+      <li>
+        Click “Send” and verify the response status code (200 OK indicates
+        success).
+      </li>
+      <li>
+        Use the response data (e.g., place ID) for subsequent API calls like GET
+        or DELETE.
+      </li>
+    </ol>
+
+    <p>
+      This method allows thorough manual testing to verify the API behaves as
+      expected before automating tests.
+    </p>
+
+    <hr />
+
+    <p>
+      <em>
+        These core API concepts and testing practices lay the foundation for
+        advanced API automation using tools like Postman or Rest Assured,
+        covered in subsequent lectures.
+      </em>
+    </p>
+
+    <div
+      class="post-footer"
+      style="
+        text-align: center;
+        margin-top: 40px;
+        font-size: 0.9rem;
+        color: #666;
+      "
+    >
+      © 2025 Rohit Bhardwaj | API Testing Basics
+    </div>
+  </div>
+</div>

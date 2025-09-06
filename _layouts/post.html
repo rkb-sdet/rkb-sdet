@@ -3,39 +3,48 @@ layout: default
 ---
 
 {% include navigation.html %}
-{% include breadcrumb.html %}
 
-<div class="blog-post-page">
-  <!-- Left sidebar Learning Index from data -->
-{% assign category_slug = page.categories[0] | slugify %}
-{% assign data_filename = category_slug | append: "-index" %}
-
-{% assign category_index = site.data[data_filename] %}
-
-<nav class="left-vertical-nav">
-  <h2>{{ page.categories[0] }} Learning Index</h2>
-  {% if category_index and category_index.sections %}
-    {% for section in category_index.sections %}
-      <h3 class="index-section-title">{{ section.title }}</h3>
-      <ul>
-        {% for session in section.sessions %}
-          <li>
-            <a href="{{ session.url | relative_url }}" {% if session.url == page.url %}class="active"{% endif %}>
-              <span class="nav-serial">{{ session.serial }}</span> {{ session.title }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endfor %}
-  {% else %}
-    <p>No index found for category: {{ page.categories[0] }}</p>
-  {% endif %}
-</nav>
+<!-- Responsive Menu Toggle Button matching blog page -->
+<button
+  id="postSidebarToggle"
+  aria-label="Toggle sidebar menu"
+  aria-expanded="false"
+  aria-controls="postSidebar"
+  class="sidebar-toggle-btn"
+>
+  &#9776;
+</button>
 
 
-  <!-- Main content -->
+<div class="blog-post-page responsive-layout">
+
+  <!-- Left Sidebar Navigation -->
+  {% assign category_slug = page.categories[0] | slugify %}
+  {% assign data_filename = category_slug | append: "-index" %}
+  {% assign category_index = site.data[data_filename] %}
+
+  <nav id="postSidebar" class="left-verticalMenu" role="navigation">
+    <h2>{{ page.categories[0] }} Learning Index</h2>
+    {% if category_index and category_index.sections %}
+      {% for section in category_index.sections %}
+        <h3 class="index-section-title">{{ section.title }}</h3>
+        <ul>
+          {% for session in section.sessions %}
+            <li>
+              <a href="{{ session.url | relative_url }}" {% if session.url == page.url %}class="active"{% endif %}>
+                <span class="nav-serial">{{ session.serial }}</span> {{ session.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    {% else %}
+      <p>No index found for category: {{ page.categories[0] }}</p>
+    {% endif %}
+  </nav>
+
+  <!-- Main Content -->
   <article class="blog-post-content">
-  
     <h1>{{ page.title }}</h1>
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %d, %Y" }}</time> |
@@ -44,170 +53,261 @@ layout: default
         <a href="/categories/{{ category | slugify }}/">{{ category }}</a>{% unless forloop.last %}, {% endunless %}
       {% endfor %}
       {% if page.tags %}
-      <br />Tags:
-      {% for tag in page.tags %}
-        <a href="/tags/{{ tag | slugify }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
-      {% endfor %}
+        <br />Tags:
+        {% for tag in page.tags %}
+          <a href="/tags/{{ tag | slugify }}/">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
       {% endif %}
     </p>
     {% if page.image %}
-    <div class="blog-post-image">
-      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" />
-    </div>
+      <div class="blog-post-image">
+        <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" />
+      </div>
     {% endif %}
-
     <div class="post-body">{{ content }}</div>
   </article>
 </div>
 
 <style>
-.blog-post-page {
-  display: flex;
-  max-width: 90%;
-  margin: 0 auto;
-  padding: 32px 16px;
-  gap: 36px;
-}
-
-.left-vertical-nav {
-  width: 25%;
-  border-right: 2px solid #e1e4e8;
-  padding-left: 24px;
-  padding-right: 24px;
-  position: sticky;
-  top: 90px;
-  height: fit-content;
-  background: #f9f9fa;
-  font-size: smaller;
-}
-
-.left-vertical-nav h2 {
-  font-size: 22px;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-  color: #222c52;
-}
-
-.index-section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 1.2rem 0 0.6rem 0;
-  color: #1849cf;
-}
-
-.left-vertical-nav ul {
-  list-style: none;
-  padding: 0 0 10px 0;
-  margin: 0;
-}
-
-.left-vertical-nav li {
-  margin-bottom: 12px;
-}
-
-.nav-serial {
-  display: inline-block;
-  min-width: 32px;
-  color: #2871f7;
-  font-weight: 600;
-  margin-right: 8px;
-  font-family: 'Fira Mono', 'Consolas', monospace;
-  letter-spacing: 1px;
-  font-size: 14px;
-  vertical-align: middle;
-}
-
-.left-vertical-nav a {
-  color: #333;
-  text-decoration: none;
-  font-weight: 500;
-  display: block;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: background-color 0.25s, color 0.25s;
-  background: transparent;
-}
-
-.left-vertical-nav a:hover {
-  background-color: #e6f0ff;
-  color: #005792;
-}
-
-.left-vertical-nav a.active {
-  font-weight: 700;
-  color: #005792;
-  background-color: #d0e2ff;
-  box-shadow: 2px 0 0 #2871f7;
-}
-
-.blog-post-content {
-  flex-grow: 1;
-  max-width: 65%;
-  padding-bottom: 32px;
-}
-
-.blog-post-image img {
-  width: 70%;
-  height: auto;
-  border-radius: 8px;
-  margin-left: 15%;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
-}
-
-.blog-post-content h1 {
-  font-size: 2.5rem;
-  margin-bottom: 22px;
-  color: #1849cf;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.post-meta {
-  font-size: 15px;
-  color: #51627e;
-  margin-bottom: 28px;
-}
-
-.post-meta a {
-  color: #2871f7;
-  text-decoration: none;
-  margin-right: 4px;
-  font-weight: 500;
-  border-bottom: 1px dotted #d0e2ff;
-}
-
-.post-meta a:hover {
-  text-decoration: underline;
-  color: #005792;
-  border-bottom: 1px solid #2871f7;
-}
-
-.post-body {
-  font-size: 18px;
-  line-height: 1.7;
-  color: #222;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
+  /* Base Layout */
   .blog-post-page {
-    flex-direction: column;
-    gap: 0;
-    padding: 24px 5px;
+    display: flex;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 32px 16px;
+    gap: 36px;
   }
+
   .left-vertical-nav {
-    width: 100%;
-    position: static;
-    border-right: none;
-    border-bottom: 2px solid #e1e4e8;
-    padding-right: 0;
-    margin-bottom: 18px;
+    width: 25%;
+    border-right: 2px solid #e1e4e8;
+    padding-left: 24px;
+    padding-right: 24px;
+    position: sticky;
+    top: 90px;
+    height: fit-content;
+    background: #f9f9fa;
+    font-size: smaller;
   }
+
+  .left-vertical-nav h2 {
+    font-size: 22px;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #222c52;
+  }
+
+  .index-section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 1.2rem 0 0.6rem 0;
+    color: #1849cf;
+  }
+
+  .left-vertical-nav ul {
+    list-style: none;
+    padding: 0 0 10px 0;
+    margin: 0;
+  }
+
+  .left-vertical-nav li {
+    margin-bottom: 12px;
+  }
+
+  .nav-serial {
+    display: inline-block;
+    min-width: 32px;
+    color: #2871f7;
+    font-weight: 600;
+    margin-right: 8px;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    letter-spacing: 1px;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+
+  .left-vertical-nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.25s, color 0.25s;
+    background: transparent;
+  }
+
+  .left-vertical-nav a:hover {
+    background-color: #e6f0ff;
+    color: #005792;
+  }
+
+  .left-vertical-nav a.active {
+    font-weight: 700;
+    color: #005792;
+    background-color: #d0e2ff;
+    box-shadow: 2px 0 0 #2871f7;
+  }
+
   .blog-post-content {
-    max-width: 100%;
-    padding-bottom: 16px;
+    flex-grow: 1;
+    max-width: 65%;
+    padding-bottom: 32px;
   }
-}
+
+  .blog-post-image img {
+    width: 70%;
+    height: auto;
+    border-radius: 8px;
+    margin-left: 15%;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  }
+
+  .blog-post-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 22px;
+    color: #1849cf;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .post-meta {
+    font-size: 15px;
+    color: #51627e;
+    margin-bottom: 28px;
+  }
+
+  .post-meta a {
+    color: #2871f7;
+    text-decoration: none;
+    margin-right: 4px;
+    font-weight: 500;
+    border-bottom: 1px dotted #d0e2ff;
+  }
+
+  .post-meta a:hover {
+    text-decoration: underline;
+    color: #005792;
+    border-bottom: 1px solid #2871f7;
+  }
+
+  .post-body {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #222;
+  }
+
+  /* Responsive Navigation Toggle Button */
+  .responsive-nav-toggle-btn {
+    display: none;
+    position: relative;
+    margin: 18px 0 18px 8px;
+    left: 0;
+    z-index: 1050;
+    background: #2871f7;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    box-shadow: 0 4px 12px rgba(40,113,247,0.08);
+  }
+
+  .responsive-nav-toggle-btn:focus,
+  .responsive-nav-toggle-btn:hover {
+    background: #005792;
+    outline: none;
+  }
+
+  @media (max-width: 900px) {
+    .responsive-nav-toggle-btn {
+      display: block;
+      width: max-content;
+      margin: 25px 0 18px 8px;
+      left: 0;
+    }
+
+    .blog-post-page {
+      flex-direction: column;
+      gap: 0;
+      padding: 24px 5px;
+      padding-top: 0;
+    }
+
+    /* Hide nav by default, Slide from left */
+    .responsive-left-vertical-nav {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: #f9f9fa;
+      border-right: 2px solid #e1e4e8;
+      padding-left: 24px;
+      padding-right: 24px;
+      overflow-y: auto;
+      box-shadow: 3px 0 15px rgba(0,0,0,0.1);
+      transition: left 0.3s ease-in-out;
+      z-index: 1099;
+    }
+
+    .responsive-left-vertical-nav.show {
+      left: 0;
+    }
+
+    .responsive-layout.dimmed::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 1098;
+    }
+
+    .responsive-layout.dimmed .blog-post-content {
+      filter: brightness(0.7);
+      pointer-events: none;
+      transition: filter 0.3s ease;
+    }
+
+    .blog-post-content {
+      max-width: 100%;
+      padding: 1.25rem;
+      transition: filter 0.3s ease;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .responsive-left-vertical-nav {
+      width: 240px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
 </style>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.getElementById("postSidebar");
+  const toggleBtn = document.getElementById("postSidebarToggle");
+
+  toggleBtn.addEventListener("click", function () {
+    const isActive = sidebar.classList.toggle("active");
+    toggleBtn.setAttribute("aria-expanded", isActive);
+  });
+
+  // Optional: Close sidebar on outside click
+  document.addEventListener("click", function (e) {
+    if (
+      !sidebar.contains(e.target) &&
+      !toggleBtn.contains(e.target) &&
+      sidebar.classList.contains("active")
+    ) {
+      sidebar.classList.remove("active");
+      toggleBtn.setAttribute("aria-expanded", false);
+    }
+  });
+});
+</script>

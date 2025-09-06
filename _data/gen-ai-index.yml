@@ -1,0 +1,14 @@
+sections:
+  - title: "Introduction to AI Testing terminologies"
+    sessions:
+      - serial: "001"
+        title: "Introduction to AI Terminologies"
+        url: "/gen-ai/2025/09/05/introduction-to-gen-ai.html"
+      - serial: "002"
+        title: "Privacy & Security of AI Applications"
+        url: "/postman/2025/09/03/learn-api-testing-basics.html"
+  - title: "Prompt Engineering - 3 C's (Context, Constraints, Clarity)"
+    sessions:
+      - serial: "003"
+        title: "Why Prompt Engineering matters?"
+        url: ""

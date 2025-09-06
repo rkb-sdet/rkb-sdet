@@ -1,0 +1,182 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      How to Create a Selenium Automation Maven Project from Scratch
+    </h1>
+    <p>
+      Learn how to set up a new Maven project for Selenium automation, step by
+      step. This guide will walk you through every detail—from project creation
+      to adding dependencies—so you can get started with confidence!
+    </p>
+
+    <h2 class="post-heading-h2">Step 1: Create a New Maven Project</h2>
+    <ol>
+      <li class="step-title">Open Your IDE (Eclipse or IntelliJ):</li>
+      <ul>
+        <li><b>Eclipse:</b> <code>File &gt; New &gt; Project...</code></li>
+        <li><b>IntelliJ:</b> <code>File &gt; New &gt; Project...</code></li>
+      </ul>
+
+      <li class="step-title">Select Maven Project Type:</li>
+      <ul>
+        <li>
+          In the project dialog, select <b><u>Maven Project</u></b> and click
+          <b>Next</b>.
+        </li>
+        <li>
+          <img
+            src="{{ '/assets/images/selenium/image.png' | relative_url }}"
+            alt=""
+            width="360px"
+            height="280px"
+          />
+        </li>
+      </ul>
+
+      <li class="step-title">Choose Archetype:</li>
+      <ul>
+        <li>
+          In the <b>Archetype</b> selection, search for <b><u>quickstart</u></b
+          >. <br />
+          Select <b><u>maven-archetype-quickstart</u></b> (template for a simple
+          Java project).
+        </li>
+        <li>
+          <img
+            src="{{ '/assets/images/selenium/archetype.png' | relative_url }}"
+            alt="archetype"
+            width="360px"
+            height="280px"
+          />
+        </li>
+      </ul>
+
+      <li class="step-title">Enter Maven Coordinates:</li>
+      <ul>
+        <li>
+          <b>Group Id:</b> e.g., <code>com.example</code> or
+          <code>rahulshettyacademy</code>
+        </li>
+        <li><b>Artifact Id:</b> e.g., <code>SeleniumFrameworkDesign</code></li>
+        <li><b>Version, Package:</b> Leave default or customize as needed.</li>
+        <li>
+          <img
+            src="{{ '/assets/images/selenium/archetype-parameters.png' | relative_url }}"
+            alt="archetype"
+            width="360px"
+            height="280px"
+          />
+        </li>
+      </ul>
+
+      <li class="step-title">Finish:</li>
+      <ul>
+        <li>
+          Click <b>Finish</b>. The IDE will generate a new Maven project with
+          standard folder structure and <code>pom.xml</code>.
+        </li>
+        <li>
+          <img
+            src="{{ '/assets/images/selenium/project.png' | relative_url }}"
+            alt="archetype"
+            width="360px"
+            height="280px"
+          />
+        </li>
+      </ul>
+    </ol>
+
+    <div class="tip">
+      <b>Tip:</b> The <b>Group Id</b> is usually your company or domain (e.g.,
+      <code>rahulshettyacademy</code>), and the <b>Artifact Id</b> is the name
+      of your specific project.
+    </div>
+
+    <h2 class="post-heading-h2">Step 2: Understand the Project Structure</h2>
+    <pre>
+SeleniumFrameworkDesign/
+  ├── pom.xml
+  └── src/
+      ├── main/
+      │   └── java/
+      └── test/
+          └── java/
+    </pre>
+
+    <ul>
+      <li><code>pom.xml</code> – Maven Project Object Model</li>
+      <li><code>src/main/java</code> – Source code</li>
+      <li><code>src/test/java</code> – Automation test scripts</li>
+    </ul>
+
+    <h2 class="post-heading-h2">Step 3: Add Selenium & TestNG Dependencies</h2>
+    <ol>
+      <li class="step-title">Open <code>pom.xml</code></li>
+      <li class="step-title">Add Selenium Java Dependency:</li>
+      <pre>
+&lt;dependency&gt;
+  &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+  &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+  &lt;version&gt;4.35.0&lt;/version&gt;
+&lt;/dependency&gt;
+      </pre>
+
+      <li class="step-title">Add TestNG Dependency:</li>
+      <pre>
+&lt;dependency&gt;
+  &lt;groupId&gt;org.testng&lt;/groupId&gt;
+  &lt;artifactId&gt;testng&lt;/artifactId&gt;
+  &lt;version&gt;7.8.0&lt;/version&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+      </pre>
+
+      <li class="step-title">Remove JUnit (Optional)</li>
+    </ol>
+
+    <div class="warning">
+      <b>Note:</b> Choose TestNG version per Java version: Java 8 → 6.14.3, Java
+      11+ → 7.x+
+    </div>
+
+    <h2 class="post-heading-h2">Step 4: Your Project is Ready!</h2>
+    <ul>
+      <li>
+        You now have a ready-to-use Maven project configured for Selenium
+        automation with TestNG.
+      </li>
+      <li>
+        Add tests under <code>src/test/java</code>, package them, and start
+        building automation.
+      </li>
+    </ul>
+
+    <div class="tip">
+      <b>The beauty of Maven:</b> Just specify GroupId and ArtifactId, and Maven
+      resolves all transitive dependencies!
+    </div>
+
+    <h3 class="post-heading-h3">Summary</h3>
+    <ol>
+      <li>Create Maven Project using <u>maven-archetype-quickstart</u></li>
+      <li>Fill GroupId and ArtifactId</li>
+      <li>Add Selenium + TestNG</li>
+      <li>Remove JUnit</li>
+      <li>Sync Maven</li>
+      <li>Write your scripts!</li>
+    </ol>
+
+    <hr />
+    <p>
+      That's it! In the next lesson, we'll create your first Selenium test case.
+    </p>
+  </div>
+</div>

@@ -9,10 +9,17 @@ sections:
       - serial: "002"
         title: "Install Java & Selenium -Get Started with basic Steps of the Selenium WebDriver"
         url: ""
-  - title: "Section 3: Locator Techniques& Tools used to identify Objects"
+  - title: "Section 18: Framework Part 1 - Create Maven Project & Prepare End-to-End Test Cases"
     sessions:
-      - serial: "003"
-        title: "Locator Techniques& Tools used to identify Objects"
+      - serial: "148"
+        title: "Design Selenium Framework from Scratch"
+        url: "/selenium/2025/09/05/FAQs-about-framework-design.html"
+      - serial: "150"
+        title: "How to Create a Selenium Automation Maven Project from Scratch"
+        url: "/selenium/2025/09/05/create-new-maven-project-and-all-framework-dependencies.html"
+      - serial: "151"
+        title: "Ecommerce Application Demo which will be used in the Framework"
         url: ""
-
-        
+      - serial: "152"
+        title: "Selenium program on WebDriverManager - Login - GetProductList"
+        url: ""

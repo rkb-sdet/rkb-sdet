@@ -1,45 +1,44 @@
-title: Your awesome title
+title: RKB SDET Blog
 email: your-email@example.com
 description: >-
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "/rkb-sdet" # the subpath of your site, e.g. /blog
-url: "https://github.com" # the base hostname & protocol for your site, e.g. http://example.com
+  A blog about Software Testing, Selenium, Postman, and QA automation.
+baseurl: "/rkb-sdet"
+url: "https://rkb-sdet.github.io"
 github_username: rkb-sdet
 
 # Build settings
 theme: minima
+
 plugins:
   - jekyll-feed
-  - jekyll-archives
+  # - jekyll-archives    # Archives plugin ko hata diya
 
-jekyll-archives:
-  enabled:
-    - categories
-    - tags
-    - years
-    - months
-  layouts:
-    category: archive
-    tag: archive
-    year: archive
-    month: archive
-  permalinks:
-    category: /categories/:name/
-    tag: /tags/:name/
-    year: /archives/:year/
-    month: /archives/:year/:month/
-# Exclude from processing.
-# The following items will not be processed, by default.
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# jekyll-archives ka configuration hatao pura kyonki plugin disabled hai
+# jekyll-archives:
+#   enabled:
+#     - categories
+#     - tags
+#     - years
+#     - months
+#   layouts:
+#     category: category
+#     tag: tag
+#     year: archive
+#     month: archive
+#   permalinks:
+#     category: /categories/:name/
+#     tag: /tags/:name/
+#     year: /archives/:year/
+#     month: /archives/:year/:month/
+
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

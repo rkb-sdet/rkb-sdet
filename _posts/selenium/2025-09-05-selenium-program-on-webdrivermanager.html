@@ -1,0 +1,61 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">Creating a Standalone End-to-End Selenium Test</h1>
+    <p>In this lecture, we begin by writing a standalone Selenium test before converting it into a structured framework later.</p>
+
+    <h2 class="post-heading-h2">Project Setup</h2>
+    <ul>
+      <li>Delete default generated files like <code>App.java</code> and <code>AppTest.java</code> from your Maven project.</li>
+      <li>Write test scripts inside the <code>src/test/java</code> package.</li>
+      <li>Use <code>src/main/java</code> for reusable utilities and page objects later.</li>
+    </ul>
+
+    <h2 class="post-heading-h2">Creating the Test Class</h2>
+    <p>Create a new Java class named <code>StandAloneTest</code> under the test package. This class will contain the end-to-end automation script.</p>
+
+    <h2 class="post-heading-h2">Using WebDriverManager for ChromeDriver</h2>
+    <ul>
+      <li>Import the <code>WebDriverManager</code> dependency in <code>pom.xml</code> (not included by default).</li>
+      <li>This tool downloads and manages the ChromeDriver compatible with your browser version automatically.</li>
+      <li>Instantiate ChromeDriver with:</li>
+    </ul>
+    <pre><code>WebDriverManager.chromedriver().setup();
+WebDriver driver = new ChromeDriver();</code></pre>
+
+    <h2 class="post-heading-h2">Test Workflow Steps</h2>
+    <ol>
+      <li>Invoke browser and open the URL using <code>driver.get("https://rahulshettyacademy.com/client")</code>.</li>
+      <li>Set implicit wait globally to handle sync issues:
+        <pre><code>driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));</code></pre>
+      </li>
+      <li>Locate email and password input fields by <code>id</code> using <code>driver.findElement(By.id("userEmail"))</code> and <code>driver.findElement(By.id("userPassword"))</code>.</li>
+      <li>Send your created user credentials using <code>sendKeys()</code>.</li>
+      <li>Locate and click the login button by its id using <code>click()</code>.</li>
+    </ol>
+
+    <h2 class="post-heading-h2">Selecting a Product Dynamically</h2>
+    <p>After login, the page displays multiple products in cards. To click a specific product’s "Add to Cart" button:</p>
+    <ul>
+      <li>Use <code>findElements</code> with a common CSS class to fetch all product cards, e.g., <code>driver.findElements(By.cssSelector(".mb-3"))</code>.</li>
+      <li>Store the result in a <code>List&lt;WebElement&gt;</code>.</li>
+      <li>Iterate through each product, check its title text, and click <code>Add to Cart</code> for the matching product.</li>
+    </ul>
+
+    <h2 class="post-heading-h2">Tips &amp; Notes</h2>
+    <ul>
+      <li>This standalone test illustrates core Selenium functionality without framework features.</li>
+      <li>You can solve product selection logic on your own or wait for the next lecture with a solution.</li>
+      <li>Focus on learning locator strategies, waits, and interactions before introducing framework patterns.</li>
+    </ul>
+
+    <p><strong>Stay tuned for the next session</strong> where we convert this standalone test into a maintainable automation framework with best practices.</p>
+  </div>
+</div>

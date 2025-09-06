@@ -1,0 +1,108 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Designing an End-to-End Selenium Test for E-commerce Automation
+    </h1>
+
+    <p>
+      Welcome back to the Selenium automation series! To start designing a
+      robust framework, we first need a solid, end-to-end test case.
+    </p>
+
+    <h2 class="post-heading-h2">Using a Sample E-commerce Application</h2>
+    <p>
+      We'll use the
+      <a href="https://rahulshettyacademy.com/client" target="_blank">
+        Rahul Shetty Academy demo e-commerce site
+      </a>
+      as our example app. <strong>Important:</strong> Use the URL ending with
+      <code>/client</code>. Avoid going directly to authentication or login URLs
+      to prevent errors.
+    </p>
+
+    <h2 class="post-heading-h2">Test Flow Overview</h2>
+    <ul>
+      <li>
+        <strong>Create a dummy user account</strong> on the site with any random
+        email and password you can remember.
+      </li>
+      <li><strong>Login</strong> with your created credentials.</li>
+      <li>
+        <strong>Select a product</strong> (e.g., Zara Coat 3) from the product
+        listing page visible after login.
+      </li>
+      <li>
+        <strong>Validate</strong> that the "product added to cart" message
+        appears as confirmation.
+      </li>
+      <li>
+        <strong>Navigate to cart</strong> and confirm the selected products are
+        displayed.
+      </li>
+      <li>
+        <strong>Fill in the checkout form</strong> with your personal details
+        and select your country by typing to search.
+      </li>
+      <li>
+        <strong>Place the order</strong> and ensure you land on the confirmation
+        page with a thank-you message.
+      </li>
+      <li>
+        <strong>Grab the order ID(s)</strong> from the confirmation to use later
+        for verification.
+      </li>
+      <li>
+        <strong>Verify orders in the order history tab</strong> to ensure all
+        orders you placed are listed.
+      </li>
+      <li>
+        <strong>View order details</strong> for accuracy of information such as
+        country and other form data.
+      </li>
+      <li>
+        <strong>Delete orders</strong> and confirm success messages and removal
+        from the list.
+      </li>
+      <li>
+        <strong>Return to shopping</strong> to repeat or place additional
+        orders.
+      </li>
+    </ul>
+
+    <p>
+      This test scenario covers a full user journey from login, product
+      selection, checkout, to order history verification.
+    </p>
+
+    <h2 class="post-heading-h2">Next Steps</h2>
+    <p>
+      In the next 30 minutes, we will develop a standalone Selenium test script
+      that automates this entire workflow. This standalone test will later be
+      enhanced with framework best practices including:
+    </p>
+    <ul>
+      <li>Page Object Model (POM)</li>
+      <li>Data-driven testing</li>
+      <li>Parallel test execution</li>
+      <li>Robust reports and retry logic</li>
+    </ul>
+
+    <p>
+      <strong>Pro tip:</strong> Prepare your dummy user accounts in advance for
+      smooth automation.
+    </p>
+
+    <p>
+      Stay tuned for the hands-on demo where we automate login, product
+      selection, cart validation, and order placement seamlessly with Selenium!
+    </p>
+  </div>
+</div>

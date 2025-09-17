@@ -1,0 +1,140 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Selenium POM: Checkout Page and Final Confirmation (End-to-End Flow)
+    </h1>
+
+    <p>
+      Let's wrap up the Page Object Model (POM) refactor by adding the
+      <b>Checkout</b> and <b>Confirmation Page</b>. Extend from your abstract
+      component, write action methods for country selection and order
+      submission, and echo the final confirmation back to the test for
+      validation.
+    </p>
+
+    <h2 class="post-heading-h2">Checkout Page Object</h2>
+    <pre>
+package rahulshettyacademy.pageobjects;
+
+import rahulshettyacademy.abstractcomponents.AbstractComponent;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class CheckoutPage extends AbstractComponent {
+  WebDriver driver;
+
+  @FindBy(css = "[placeholder='Select Country']")
+  WebElement countryInput;
+
+  @FindBy(css = ".action__submit")
+  WebElement submitOrderButton;
+
+  @FindBy(xpath = "(//button[contains(@class, 'ta-item')])[2]")
+  WebElement selectCountryOption;
+
+  public CheckoutPage(WebDriver driver) {
+    super(driver);
+    this.driver = driver;
+    PageFactory.initElements(driver, this);
+  }
+
+  // Action method: Complete country select and confirm order
+  public void selectCountry(String countryName) {
+    countryInput.sendKeys(countryName);
+    waitForElementToAppear(By.cssSelector(".ta-results"));
+    selectCountryOption.click();
+  }
+
+  // Clicks submit and returns confirmation page object
+  public ConfirmationPage submitOrder() {
+    submitOrderButton.click();
+    return new ConfirmationPage(driver);
+  }
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Confirmation Page Object</h2>
+    <pre>
+package rahulshettyacademy.pageobjects;
+
+import rahulshettyacademy.abstractcomponents.AbstractComponent;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class ConfirmationPage extends AbstractComponent {
+  WebDriver driver;
+
+  @FindBy(css = ".hero-primary")
+  WebElement confirmationMessage;
+
+  public ConfirmationPage(WebDriver driver) {
+    super(driver);
+    this.driver = driver;
+    PageFactory.initElements(driver, this);
+  }
+
+  // Returns the text of the confirmation message for assertion in the test
+  public String getConfirmationMessage() {
+    return confirmationMessage.getText();
+  }
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Crisp End-to-End Test</h2>
+    <p>
+      All validations stay in the test; page objects only encapsulate actions
+      and element access. Here's how simple your test flow now becomes:
+    </p>
+    <pre>
+LandingPage landingPage = new LandingPage(driver);
+ProductCatalogue productCatalogue = landingPage.loginApplication(email, password);
+productCatalogue.addProductToCart(productName);
+
+CartPage cartPage = productCatalogue.goToCartPage();
+Assert.assertTrue(cartPage.verifyProductDisplay(productName));
+
+CheckoutPage checkoutPage = cartPage.goToCheckout();
+checkoutPage.selectCountry("India");
+ConfirmationPage confirmationPage = checkoutPage.submitOrder();
+
+String finalMsg = confirmationPage.getConfirmationMessage();
+Assert.assertEquals(finalMsg, "THANKYOU FOR THE ORDER.");
+    </pre>
+
+    <ul>
+      <li>Every navigation action returns the new correct page object.</li>
+      <li>
+        Page classes contain only logic for UI actions, not test validation.
+      </li>
+      <li>
+        Adding new steps or handling more browsers is now trivial and DRY.
+      </li>
+    </ul>
+
+    <div class="tip">
+      <b>Tip:</b> All assertions and result checks should live in test classes,
+      not page objects. Action methods only perform UI interactions and return
+      results.
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      The whole framework is now modular, readable, and professional. With
+      abstract components for common elements, focused page classes for every
+      distinct page, and consistent return of new page objects as navigation
+      occurs, POM makes end-to-end automation maintainable and scalable!
+    </p>
+  </div>
+</div>

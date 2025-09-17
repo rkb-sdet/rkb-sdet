@@ -1,0 +1,80 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Understanding Page Object Design Pattern (POM) in Selenium
+    </h1>
+
+    <p>
+      The <strong>Page Object Model (POM)</strong> is a design pattern widely
+      used in Selenium automation to improve test maintenance and reduce code
+      duplication. It helps separate test logic from the UI element locators by
+      encapsulating web elements and page actions inside dedicated page classes.
+    </p>
+
+    <h2 class="post-heading-h2">Why Use Page Object Model?</h2>
+    <p>
+      In standalone tests, locators are often repeated across multiple tests,
+      leading to high maintenance overhead. For example, if a login form's
+      username field changes its ID, you'd need to update all tests referencing
+      that locator individually.
+    </p>
+    <p>
+      This repetitive update task becomes unmanageable in large suites with many
+      tests and locators. POM addresses this by centralizing locators and
+      associated methods inside page-specific classes.
+    </p>
+
+    <h2 class="post-heading-h2">How Page Object Model Works</h2>
+    <p>
+      Instead of one large file containing all locators, create a separate class
+      for each page or significant part of your web application. For example,
+      have <code>LoginPage.java</code>, <code>ProductCatalogPage.java</code>,
+      and <code>CheckoutPage.java</code> classes.
+    </p>
+    <p>
+      Each page class contains locators and methods specific to that page,
+      making the code cleaner and modular. Tests then interact only with these
+      page objects, calling their methods rather than managing locators
+      directly.
+    </p>
+    <p>
+      This modular design helps isolate locator changes. If a locator on the
+      login page changes, update it only inside the
+      <code>LoginPage</code> class. All tests relying on that page object will
+      automatically use the updated locator without any further changes.
+    </p>
+
+    <h2 class="post-heading-h2">Benefits of Using POM</h2>
+    <ul>
+      <li>
+        Improved maintainability by reducing duplicated locator definitions.
+      </li>
+      <li>Better readability and organization of test code.</li>
+      <li>Reduced risk of test failures due to locator changes.</li>
+      <li>
+        Manageable and scalable test suites suitable for large applications.
+      </li>
+    </ul>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      Without POM, updating a single locator across many tests can be tedious
+      and error-prone. With POM, locators are centralized in page classes,
+      making updates quick and lowering test maintenance efforts. Proper use of
+      POM design pattern leads to cleaner, modular, and professional test
+      automation frameworks.
+    </p>
+    <p>
+      In upcoming posts, we will implement these concepts practically in our
+      Selenium framework.
+    </p>
+  </div>
+</div>

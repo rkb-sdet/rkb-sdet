@@ -1,0 +1,118 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Encapsulating Product Selection and Cart Actions in Page Objects (Selenium
+      POM)
+    </h1>
+
+    <p>
+      As your Selenium framework matures, move all product-searching and cart
+      actions into specialized action methods inside your ProductCatalogue page
+      object. Your test code becomes clean and readable; all technical filtering
+      and synchronization logic is safely hidden inside these action methods.
+    </p>
+
+    <h2 class="post-heading-h2">Get Product by Name: Reusable Method</h2>
+    <p>
+      Suppose your test should select a product by its name (e.g., "ZARA COAT
+      3"). Rather than re-writing streaming and filtering logic every time, add
+      this action method to your ProductCatalogue:
+    </p>
+    <pre>
+public WebElement getProductByName(String productName) {
+  // Ensures products are loaded before filtering
+  List&lt;WebElement&gt; products = getProductList();
+  return products.stream()
+      .filter(prod -&gt;
+        prod.findElement(By.cssSelector("b")).getText().equals(productName))
+      .findFirst()
+      .orElse(null);
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Add Product to Cart: Action Method</h2>
+    <p>
+      Add all the steps for adding a product (finding, clicking, and waiting for
+      visual confirmation) into a single smart method:
+    </p>
+    <pre>
+// Page Factory for spinner
+@FindBy(css = ".ng-animating")
+WebElement spinner;
+
+public void addProductToCart(String productName) {
+  // Find the product card by name
+  WebElement prod = getProductByName(productName);
+  // Click the Add to Cart button inside that card
+  prod.findElement(By.cssSelector(".card-body button:last-of-type")).click();
+  // Wait for toast message to confirm addition
+  waitForElementToAppear(By.cssSelector("#toast-container"));
+  // Wait for spinner animation to disappear
+  waitForElementToDisappear(spinner);
+}
+    </pre>
+    <p>
+      These methods use generic <code>waitForElementToAppear</code> and
+      <code>waitForElementToDisappear</code> from your abstract component for
+      robust synchronization.
+    </p>
+
+    <h2 class="post-heading-h2">Supporting Utilities in Abstract Component</h2>
+    <pre>
+// In AbstractComponent:
+public void waitForElementToAppear(By findBy) {
+  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+  wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
+}
+
+public void waitForElementToDisappear(WebElement ele) {
+  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+  wait.until(ExpectedConditions.invisibilityOf(ele));
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Benefits of This Approach</h2>
+    <ul>
+      <li>
+        Action methods (like <code>addProductToCart</code>) express intent and
+        centralize smart logic.
+      </li>
+      <li>
+        All element handling and waits are hidden within the page object, not in
+        the tests.
+      </li>
+      <li>
+        Whenever you need to change locators or wait logic, update just one
+        place in the page class.
+      </li>
+      <li>
+        Test code becomes simple and business-focused:
+        <pre>
+productCatalogue.addProductToCart("ZARA COAT 3");
+        </pre>
+      </li>
+    </ul>
+
+    <div class="tip">
+      <b>Tip:</b> Do not copy streaming or click logic into every test! Wrap it
+      once in the page object’s action methods to achieve top maintainability
+      and clarity.
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      By designing smart, reusable action methods for every workflow (like
+      filtering, selecting, or adding products), your Selenium framework becomes
+      powerful and easy to use. Challenge yourself to convert all remaining
+      product, cart, and checkout actions into this maintainable POM pattern!
+    </p>
+  </div>
+</div>

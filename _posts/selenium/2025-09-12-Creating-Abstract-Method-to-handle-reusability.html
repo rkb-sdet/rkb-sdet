@@ -1,0 +1,114 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">Selenium POM: Creating Reusable Abstract Classes</h1>
+
+    <p>
+      In robust automation frameworks, reusable logic—like waits, window switching, or alert handling—should be centralized in one parent class and shared across page objects using <b>inheritance</b>. Abstract classes make this possible. All your page object classes can “extend” this base class to instantly access synchronization and common utilities, avoiding code duplication.
+    </p>
+
+    <h2 class="post-heading-h2">Why Use an Abstract Component?</h2>
+    <ul>
+      <li>Centralizes reusable functions needed by most page objects.</li>
+      <li>Keeps page classes focused only on elements and page-specific actions.</li>
+      <li>Simplifies maintenance for synchronization, window/frame handling, JS execution, and more.</li>
+      <li>All page objects automatically inherit and use these utilities.</li>
+    </ul>
+
+    <h2 class="post-heading-h2">Example: AbstractComponent Class</h2>
+    <pre>
+package rahulshettyacademy.abstractcomponents;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
+// Base abstract class with reusable Selenium utilities
+public class AbstractComponent {
+  WebDriver driver;
+
+  // Constructor receives driver from child (page object)
+  public AbstractComponent(WebDriver driver) {
+    this.driver = driver;
+  }
+
+  // Generic synchronization utility: wait for element to be visible
+  public void waitForElementToAppear(By findBy) {
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
+  }
+
+  // Add other common utilities:
+  // - waitForElementToDisappear(By)
+  // - switchToWindow()
+  // - handleAlert()
+  // - executeJavaScript(String)
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Extending AbstractComponent in Page Objects</h2>
+    <pre>
+package rahulshettyacademy.pageobjects;
+
+import rahulshettyacademy.abstractcomponents.AbstractComponent;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import java.util.List;
+
+public class ProductCatalogue extends AbstractComponent {
+  WebDriver driver;
+
+  // PageFactory element: list of products
+  @FindBy(css = ".mb-3")
+  List&lt;WebElement&gt; products;
+
+  By productsBy = By.cssSelector(".mb-3");
+
+  // Pass driver to parent class using super()
+  public ProductCatalogue(WebDriver driver) {
+    super(driver);
+    this.driver = driver;
+    PageFactory.initElements(driver, this);
+  }
+
+  // Action method: wait, then fetch product list
+  public List&lt;WebElement&gt; getProductList() {
+    waitForElementToAppear(productsBy); // Inherited from AbstractComponent
+    return products;
+  }
+}
+    </pre>
+    <p>
+      Every child page object <code>extends AbstractComponent</code> and sends in the <code>driver</code>. All generic functionality—like waiting for products—gets inherited, so no duplicated code!
+    </p>
+
+    <h2 class="post-heading-h2">Key Points for Framework Inheritance</h2>
+    <ul>
+      <li><b>Extend</b> abstract class in every page object for instant access to shared utilities.</li>
+      <li>Pass <code>driver</code> from the child (page object) using <code>super(driver)</code> to parent’s constructor.</li>
+      <li>Only page-specific logic goes into page object classes; abstract/base class holds generic reusable code.</li>
+      <li>This design creates a layered, maintainable structure for large test suites.</li>
+    </ul>
+
+    <div class="tip">
+      <b>Tip:</b> Use abstract classes for wait logic, window handling, and other functions every page needs—refactor once, benefit everywhere!
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      Abstract classes (like AbstractComponent) are the backbone of scalable Selenium frameworks. They define and deliver reusable functions for all page objects, leveraging inheritance for clean, DRY test architecture.
+    </p>
+  </div>
+</div>

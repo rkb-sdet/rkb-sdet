@@ -1,0 +1,143 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Implementing Page Object Model and Page Factory in Selenium
+    </h1>
+
+    <p>
+      In previous lessons, we learned the <b>why</b> of Page Object Model (POM):
+      maintenance and scalability for test automation. Now let's see
+      <b>how</b> to build your framework using POM and Page Factory pattern in
+      Selenium.
+    </p>
+
+    <h2 class="post-heading-h2">Step 1: Identify Application Pages</h2>
+    <p>
+      Break down your application by major pages (e.g. landing, product catalog,
+      checkout, confirmation), and create a Java class for each page. This helps
+      keep locators and actions scoped to the relevant UI section, making
+      updates faster and code easier to read.
+    </p>
+
+    <h2 class="post-heading-h2">Step 2: Create Page Object Classes</h2>
+    <p>
+      Place all the locators and interactions for a specific page into its own
+      class file. For example, create a <code>LandingPage</code> class
+      containing everything related to the login page like email, password, and
+      login button.
+    </p>
+
+    <h2 class="post-heading-h2">Step 3: Pass WebDriver through Constructor</h2>
+    <p>
+      To allow each page object to use your existing browser session, pass the
+      <code>WebDriver</code> from your test to the page object class via its
+      constructor. This connects the page object to your live driver.
+    </p>
+
+    <h2 class="post-heading-h2">
+      Step 4: Implement Locators with Page Factory
+    </h2>
+    <p>
+      Use the <code>@FindBy</code> annotation and
+      <code>PageFactory.initElements</code> for simplified element location.
+      This makes your code concise, and all elements are initialized
+      automatically when you create the page object.
+    </p>
+    <pre>
+package rahulshettyacademy.pageobjects;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+// Example Page Object for Landing Page
+public class LandingPage {
+
+  WebDriver driver;
+
+  // Step 1: Define elements with Page Factory annotation
+  @FindBy(id = "userEmail")
+  WebElement userEmail;
+
+  @FindBy(id = "userPassword")
+  WebElement password;
+
+  @FindBy(id = "login")
+  WebElement loginButton;
+
+  // Constructor: accepts WebDriver, initializes elements
+  public LandingPage(WebDriver driver) {
+    this.driver = driver;
+    PageFactory.initElements(driver, this);
+  }
+
+  // Step 2: Create actions for this page
+  public void enterEmail(String email) {
+    userEmail.sendKeys(email);
+  }
+
+  public void enterPassword(String pwd) {
+    password.sendKeys(pwd);
+  }
+
+  public void clickLogin() {
+    loginButton.click();
+  }
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Step 5: Use Your Page Objects in Tests</h2>
+    <pre>
+// Example usage in your test class
+WebDriver driver = new ChromeDriver();
+LandingPage landingPage = new LandingPage(driver);
+
+landingPage.enterEmail("test@example.com");
+landingPage.enterPassword("SecurePass");
+landingPage.clickLogin();
+    </pre>
+
+    <ul>
+      <li>
+        <b
+          >Keep each page’s objects and interactions isolated in their class.</b
+        >
+      </li>
+      <li>
+        <b
+          >If a locator changes, update it once in its page class and all tests
+          benefit instantly.</b
+        >
+      </li>
+      <li>
+        <b
+          >Page Factory streamlines element initialization, reducing code
+          repetition.</b
+        >
+      </li>
+    </ul>
+
+    <div class="tip">
+      <b>Tip:</b> The constructor receives the driver from your test and makes
+      it available for element initialization and actions within the page
+      object.
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      Page Object Model with Page Factory allows flexible, maintainable, and
+      scalable test framework design. In the next lessons, you will add more
+      elements and actions to your classes, building a robust Selenium test
+      suite with clean architecture.
+    </p>
+  </div>
+</div>

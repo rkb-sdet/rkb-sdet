@@ -1,0 +1,88 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">Selenium POM: Creating a Reusable Base Test for Driver Management</h1>
+
+    <p>
+      To make your Selenium framework scalable, all browser and driver setup logic should be centralized in a <b>BaseTest</b> class.
+      This minimizes duplication and simplifies test maintenance—no matter how many test cases you add!
+    </p>
+
+    <h2 class="post-heading-h2">Package Structure: Keeping Test Utilities Clean</h2>
+    <p>
+      - <b>Page object files</b> (with locators and actions, but no test logic) go under <code>src/main/java/rahulshettyacademy.pageobjects</code> and <code>rahulshettyacademy.abstractcomponents</code>.<br>
+      - <b>Test classes and test utilities</b> (like <code>BaseTest</code>) go under <code>src/test/java/rahulshettyacademy.tests</code> and <code>rahulshettyacademy.testcomponents</code>.
+    </p>
+
+    <h2 class="post-heading-h2">Global Properties: Dynamic Browser Control</h2>
+    <ul>
+      <li>Create a <code>resources</code> package for framework-wide resources in <code>src/main/java/rahulshettyacademy.resources</code>.</li>
+      <li>Add a <code>GlobalData.properties</code> plain-text file with key-value pairs, e.g.:
+        <pre>browser=chrome</pre>
+      </li>
+      <li>This property lets you control browser choice for the whole framework using a single configuration value.</li>
+    </ul>
+
+    <h2 class="post-heading-h2">Sample BaseTest Code (Driver Setup & Global Properties)</h2>
+    <pre>
+package rahulshettyacademy.testcomponents;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class BaseTest {
+  public WebDriver driver;
+
+  public WebDriver initializeDriver() throws IOException {
+    // Load Global Properties
+    Properties prop = new Properties();
+    FileInputStream fis = new FileInputStream(System.getProperty("user.dir") +
+      "/src/main/java/rahulshettyacademy/resources/GlobalData.properties");
+    prop.load(fis);
+
+    String browserName = prop.getProperty("browser");
+
+    if(browserName.equalsIgnoreCase("chrome")) {
+      driver = new ChromeDriver();
+    } else if(browserName.equalsIgnoreCase("firefox")) {
+      driver = new FirefoxDriver();
+    } else if(browserName.equalsIgnoreCase("edge")) {
+      driver = new EdgeDriver();
+    }
+
+    driver.manage().window().maximize();
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    return driver;
+  }
+}
+    </pre>
+    <ul>
+      <li><b>Dynamic project path:</b> <code>System.getProperty("user.dir")</code> retrieves your project root for portability.</li>
+      <li><b>InputStream:</b> <code>FileInputStream</code> converts file path to stream, which Java’s <code>Properties</code> class can read.</li>
+      <li><b>Change browser globally:</b> Just update the property file, and all tests switch browsers accordingly without code changes!</li>
+    </ul>
+
+    <div class="tip">
+      <b>Tip:</b> Only the <code>BaseTest</code> manages the WebDriver instantiation; all actual test classes should extend <code>BaseTest</code> and use the inherited initialized driver. No need to repeat this setup in each test!
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      Separate <b>reusable driver and setup logic</b> into a dedicated <code>BaseTest</code> under a <code>testcomponents</code> package.
+      Use a global <code>.properties</code> config file for browser and other settings.
+      This design ensures your Selenium project scales simply and robustly to hundreds of cross-browser tests!
+    </p>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Handling Advanced User Interactions in Selenium Using Actions Class
+    </h1>
+
+    <p>
+      The <code>Actions</code> class in Selenium enables advanced interactions
+      like keyboard and mouse events. It allows sending keys, clicking,
+      hovering, and other complex user actions in a more controlled way.
+    </p>
+
+    <h2 class="post-heading-h2">Using Actions to Send Keys</h2>
+    <p>
+      Instead of directly sending keys to a web element using
+      <code>sendKeys()</code>, you can use the <code>Actions</code> class which
+      takes two arguments:
+    </p>
+    <ul>
+      <li>The target <code>WebElement</code> (e.g., an input box).</li>
+      <li>The keys/text to send to that element.</li>
+    </ul>
+    <pre>
+Actions actions = new Actions(driver);
+WebElement inputBox = driver.findElement(By.cssSelector("[placeholder='Select country']"));
+actions.sendKeys(inputBox, "India").build().perform();
+    </pre>
+    <p>
+      Calling <code>build().perform()</code> is important to execute the action;
+      without it the command will not run.
+    </p>
+
+    <h2 class="post-heading-h2">Waiting for Dynamic Dropdown</h2>
+    <p>
+      After typing, a dynamic dropdown appears which can take time to load.
+      Explicit wait ensures Selenium waits until the dropdown is visible:
+    </p>
+    <pre>
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ta-results")));
+    </pre>
+
+    <h2 class="post-heading-h2">Selecting an Item from Dropdown</h2>
+    <p>
+      To select the second item in the dropdown, use <code>nth-of-type</code> CSS or XPath indexing:
+    </p>
+    <pre>
+// Using CSS Selector
+driver.findElement(By.cssSelector(".ta-item:nth-of-type(2)")).click();
+
+// Or XPath
+driver.findElement(By.xpath("(//button[contains(@class, 'ta-item')])[2]")).click();
+    </pre>
+
+    <h2 class="post-heading-h2">Verification and Best Practices</h2>
+    <ul>
+      <li>Maximize the browser window to avoid click interception issues.</li>
+      <li>Use <code>Actions</code> class for realistic user interactions.</li>
+      <li>Prefer explicit waits over <code>Thread.sleep()</code> for reliability.</li>
+      <li>Handle text assertions with case-insensitive checks using <code>equalsIgnoreCase()</code>.</li>
+      <li>Always validate success messages to confirm test outcomes.</li>
+      <li>Close the browser cleanly after tests complete.</li>
+    </ul>
+
+    <p>
+      This approach helps aggregate various Selenium concepts into a stable,
+      end-to-end automation test.
+    </p>
+
+    <div class="tip">
+      <b>Tip:</b> Actions class combined with explicit waits and assertions
+      improves automation robustness and mimics real user behavior.
+    </div>
+  </div>
+</div>

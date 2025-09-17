@@ -1,0 +1,99 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Spinner Waits and Backend Loading: Handling Delays in Selenium Tests
+    </h1>
+
+    <p>
+      When running Selenium tests, you may notice the script
+      <strong
+        >waits several seconds after adding to cart before navigating to the
+        next page</strong
+      >. Even though the spinner icon disappears visually, execution sometimes
+      pauses for up to four seconds before resuming. This can happen
+      inconsistently depending on backend load.
+    </p>
+
+    <h2 class="post-heading-h2">Why Does This Happen?</h2>
+    <p>
+      The spinner is designed to indicate background services are still loading.
+      Sometimes, a hidden spinner remains active in the backend after the
+      visible spinner is gone. Selenium waits for
+      <code>invisibilityOfElementLocated</code> or similar wait conditions to
+      pass, which includes both visible and backend-triggered spinner states.
+    </p>
+    <p>
+      If backend loads are high or services are still initializing, the test
+      must wait for all spinners (visible and hidden) to disappear before
+      continuing. This ensures next steps run only after the application is
+      truly ready.
+    </p>
+
+    <h2 class="post-heading-h2">How to Handle Delays?</h2>
+    <ul>
+      <li>
+        <strong>Explicit Wait (Best Practice):</strong> Use waits like
+        <code>wait.until(ExpectedConditions.invisibilityOf(spinner))</code> to
+        synchronize tests with application state, covering both visible and
+        backend spinner transitions.
+      </li>
+      <li>
+        <strong>Temporary Thread.sleep (Workaround):</strong>
+        If you prefer faster tests and accept short-term risks, replace the
+        spinner wait with <code>Thread.sleep(1000)</code> or
+        <code>Thread.sleep(2000)</code> in your code to bypass waiting for
+        invisible loaders. This is not recommended for production automation but
+        useful for demos and prototyping.
+      </li>
+    </ul>
+
+    <h2 class="post-heading-h2">Example: Spinner Handling Code</h2>
+    <pre>
+// Proper wait for spinner to disappear (recommended)
+wait.until(ExpectedConditions.invisibilityOf(spinner));
+
+// OR temporary workaround (less reliable, faster)
+Thread.sleep(1000); // waits 1 second, then continues
+    </pre>
+
+    <h2 class="post-heading-h2">Understanding Application Load</h2>
+    <p>
+      The root cause here is backend async services running longer due to high
+      concurrent usage or traffic spikes. Waiting for all spinners to disappear
+      is necessary for stable tests because the UI does not always reflect the
+      backend state instantly. If your app isn't a large-scale e-commerce
+      platform, resource constraints or custom backend workarounds might slow
+      down service initialization under heavy load.
+    </p>
+    <p>
+      You can choose between robust synchronization for production tests or
+      short waits for quick prototyping. Just be aware:
+      <strong
+        >spinner waits reflect your backend readiness, not just UI
+        appearance</strong
+      >.
+    </p>
+
+    <div class="tip">
+      <b>Tip:</b> Use explicit waits for reliability, and temporary sleeps for
+      speed. Monitor backend service load if you notice frequent delays in
+      spinner-based transitions.
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      Selenium spinner waits are affected by visible and backend loader
+      activity. Explicit waits are safest, but short sleeps give faster demo
+      runs. Always align your test strategy with reliability and backend load
+      realities.
+    </p>
+  </div>
+</div>

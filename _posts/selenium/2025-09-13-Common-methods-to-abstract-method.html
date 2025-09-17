@@ -1,0 +1,136 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Handling Common Headers and Streamlining Page Object Transitions in
+      Selenium POM
+    </h1>
+
+    <p>
+      In automation frameworks, UI components like headers (cart icon, home,
+      orders) often appear across multiple pages. Instead of duplicating those
+      locators in every page object, place them in the
+      <strong>abstract component</strong> (base) class everyone inherits.
+    </p>
+
+    <h2 class="post-heading-h2">Common Header Actions in Abstract Component</h2>
+    <p>
+      For example, the cart icon is present on every page. Define its locator
+      and action method once in the abstract component as a reusable API:
+    </p>
+    <pre>
+@FindBy(css = "[routerLink*='cart']")
+WebElement cartHeader;
+
+public void goToCartPage() {
+  cartHeader.click();
+}
+    </pre>
+    <p>
+      Since all page objects extend this abstract component, you can call
+      <code>goToCartPage()</code> from anywhere, making your code DRY and
+      centralized.
+    </p>
+
+    <h2 class="post-heading-h2">Creating a Cart Page Object</h2>
+    <p>
+      Create a dedicated <code>CartPage</code> class for cart-specific elements
+      and actions:
+    </p>
+    <pre>
+package rahulshettyacademy.pageobjects;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import java.util.List;
+
+public class CartPage {
+  WebDriver driver;
+
+  @FindBy(css = ".cartSection h3")
+  List&lt;WebElement&gt; cartProducts;
+
+  @FindBy(css = "button[type='button']")
+  WebElement checkoutButton;
+
+  public CartPage(WebDriver driver) {
+    this.driver = driver;
+    PageFactory.initElements(driver, this);
+  }
+
+  public Boolean verifyProductDisplay(String productName){
+    return cartProducts.stream()
+      .anyMatch(cartProduct -&gt; cartProduct.getText().equalsIgnoreCase(productName));
+  }
+
+  public void goToCheckout() {
+    checkoutButton.click();
+  }
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Validation vs Action Separation</h2>
+    <p>
+      Notice that assertions (validations) <em>do not belong</em> in page
+      objects. Page objects should only expose action methods and element
+      accessors. Validations like asserting product existence belong in your
+      test classes, which consume the page object's methods.
+    </p>
+
+    <h2 class="post-heading-h2">Optimizing Page Object Creation</h2>
+    <p>
+      Manually creating page object instances for every navigated page in your
+      tests can become cumbersome. Instead, modify action methods that trigger
+      page navigations to directly instantiate and return the next page's
+      object.
+    </p>
+    <pre>
+// Example from LandingPage class
+public ProductCatalogue loginApplication(String email, String pwd) {
+  userEmail.sendKeys(email);
+  password.sendKeys(pwd);
+  submit.click();
+  return new ProductCatalogue(driver);  // Navigate & supply new page object
+}
+
+// In CartPage class
+public CheckoutPage goToCheckout() {
+  checkoutButton.click();
+  return new CheckoutPage(driver); // Encapsulate transition here
+}
+    </pre>
+    <p>
+      Now your test code only needs to create the initial page object.
+      Subsequent transitions return proper new page objects allowing seamless
+      method chaining and reducing test code clutter.
+    </p>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <ul>
+      <li>
+        Place reusable headers and global UI elements in your abstract component
+        base class.
+      </li>
+      <li>Create focused, clear page objects for pages like Cart, Checkout.</li>
+      <li>Keep validation assertions inside test cases, not page objects.</li>
+      <li>
+        Return new page objects from methods that cause navigation to simplify
+        tests and reduce overhead.
+      </li>
+    </ul>
+
+    <p>
+      This structured POM design improves maintainability, readability, and
+      scalability of your Selenium automation framework.
+    </p>
+  </div>
+</div>

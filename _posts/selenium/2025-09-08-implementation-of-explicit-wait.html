@@ -1,0 +1,208 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Handling Synchronization in Selenium: Toast Messages and Loaders
+    </h1>
+    <p>
+      Learn how to handle <b>synchronization issues</b> like toast notifications
+      and loading animations using <b>explicit waits</b> in Selenium WebDriver.
+      This will help you write stable and reliable automation scripts without
+      relying on <code>Thread.sleep()</code>.
+    </p>
+
+    <h2 class="post-heading-h2">Step 1: Why Explicit Waits?</h2>
+    <ul>
+      <li>
+        <code>Thread.sleep()</code> adds unnecessary delay and makes tests
+        unstable under varying network speeds.
+      </li>
+      <li>
+        Explicit waits allow Selenium to pause only as long as required for an
+        element condition (e.g. visible or invisible).
+      </li>
+      <li>
+        We can target toast confirmations and loading spinners smartly using
+        Selenium’s <code>ExpectedConditions</code>.
+      </li>
+    </ul>
+
+    <div class="tip">
+      <b>Tip:</b> Always prefer explicit waits to avoid synchronization pitfalls
+      in real-world testing.
+    </div>
+
+    <h2 class="post-heading-h2">Step 2: Wait for Toast Message</h2>
+    <p>
+      A toast message confirms successful product addition. Using
+      <code>visibilityOfElementLocated</code>, we ensure our script proceeds
+      only after the toast appears.
+    </p>
+    <pre>
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+// Wait for toast message to appear
+wait.until(ExpectedConditions.visibilityOfElementLocated(
+    By.cssSelector("#toast-container")
+));
+    </pre>
+
+    <h2 class="post-heading-h2">Step 3: Wait for Loader to Disappear</h2>
+    <p>
+      After adding a product, a loading animation may appear. We must wait until
+      it is hidden, otherwise the cart button could remain inactive.
+    </p>
+    <pre>
+// Wait for loading animation to disappear
+wait.until(ExpectedConditions.invisibilityOfElementLocated(
+    By.cssSelector(".ng-animating")
+));
+    </pre>
+
+    <h2 class="post-heading-h2">Step 4: Click the Cart Button</h2>
+    <p>
+      Once confirmation is complete and loading is finished, we click the cart
+      using partial attribute match with CSS.
+    </p>
+    <pre>
+// Click on cart button
+driver.findElement(By.cssSelector("a[routerlink^='cart']")).click();
+    </pre>
+
+    <div class="tip">
+      <b>Tip:</b> Using <code>[routerlink^='cart']</code> ensures flexibility,
+      even if attribute values extend beyond basic text.
+    </div>
+
+    <h2 class="post-heading-h2">Step 5: Wait for Cart Page to Load</h2>
+    <p>
+      The cart page may take time to load items. Use explicit waits to ensure
+      elements render before interacting.
+    </p>
+    <pre>
+// Wait until products are visible
+wait.until(ExpectedConditions.visibilityOfElementLocated(
+    By.cssSelector(".cart-section .cart-item")
+));
+    </pre>
+
+    <h2 class="post-heading-h2">Step 6: Optimized Invisibility Check</h2>
+    <p>
+      Instead of locator-based checks, you can improve performance by waiting
+      directly on a resolved <code>WebElement</code>.
+    </p>
+    <pre>
+// Optimized invisibility check
+WebElement loader = driver.findElement(By.cssSelector(".ng-animating"));
+wait.until(ExpectedConditions.invisibilityOf(loader));
+    </pre>
+
+    <div class="warning">
+      <b>Note:</b> Synchronization issues are very common in Selenium. Using
+      waits in the right places ensures smooth execution of test scripts and
+      prevents flaky failures.
+    </div>
+
+    <h2 class="post-heading-h2">Final Execution Flow</h2>
+    <ol>
+      <li class="step-title">Click Add to Cart button</li>
+      <li class="step-title">Wait for toast confirmation</li>
+      <li class="step-title">Wait for loading animation to disappear</li>
+      <li class="step-title">Click on Cart link</li>
+      <li class="step-title">Wait for cart to load products</li>
+    </ol>
+
+    <p>
+      By replacing arbitrary sleeps with <b>explicit waits</b>, automation
+      becomes faster, stable, and production-ready. Handle toasts and loaders
+      smartly to keep your Selenium scripts efficient.
+    </p>
+
+    <h3 class="post-heading-h3">Complete code(till this session)</h3>
+    <pre>
+package rahulshettyacademy.SeleniumFrameworkDesign;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class StandAloneTest {
+
+    public static void main(String[] args) {
+
+        // Setup ChromeDriver using WebDriverManager
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+
+        // Configure browser timeouts and window maximize
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+
+        // Navigate to application
+        driver.get("https://rahulshettyacademy.com/client");
+
+        // Login with credentials
+        driver.findElement(By.id("userEmail")).sendKeys("rkb.sdet@gmail.com");
+        driver.findElement(By.id("userPassword")).sendKeys("Dell#3000");
+        driver.findElement(By.id("login")).click();
+
+        // Define explicit wait
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        // Wait for products to be visible on home page
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".mb-3")));
+
+        // Store all products in list
+        List<WebElement> prods = driver.findElements(By.cssSelector(".mb-3"));
+
+        // Stream to filter product by name (ZARA COAT 3)
+        WebElement product = prods.stream()
+                .filter(prod -> prod.findElement(By.cssSelector("b")).getText().equals("ZARA COAT 3"))
+                .findFirst()
+                .orElse(null);
+
+        // Click "Add To Cart" button inside the chosen product
+        product.findElement(By.cssSelector(".card-body button:last-of-type")).click();
+
+        // -------- Synchronization Starts Here --------
+
+        // Wait for toast message/notification confirming product addition
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#toast-container")));
+
+        // Wait for any loading animation (spinner) to disappear (important for synchronization)
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".ng-animating")));
+
+        // -------- Proceed to Cart --------
+
+        // Click on "Cart" using attribute selector
+        driver.findElement(By.cssSelector("[routerLink*='cart']")).click();
+
+        // (Optional): Wait for cart items to load before further actions
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".cart-section .cart-item")));
+
+        // Print confirmation in console (for demonstration)
+        System.out.println("Successfully navigated to Cart and products are loaded.");
+
+        // Closing browser
+        driver.quit();
+    }
+}
+    </pre>
+
+  </div>
+</div>

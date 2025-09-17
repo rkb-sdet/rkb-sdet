@@ -1,0 +1,160 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Writing Action Methods in Page Objects (Selenium POM)
+    </h1>
+
+    <p>
+      Instead of performing UI actions (like login) step-by-step in your tests,
+      you can combine multiple steps into a single
+      <strong>action method</strong> in your Page Object class. This increases
+      readability and keeps all element logic and interaction within the related
+      page file.
+    </p>
+
+    <h2 class="post-heading-h2">Encapsulate Actions as Methods</h2>
+    <p>
+      For example, login involves entering the email, password, and clicking the
+      login button. All three lines can go into one reusable method like
+      <code>loginApplication(email, password)</code> in your
+      <code>LandingPage</code> class.
+    </p>
+
+    <h2 class="post-heading-h2">Page Object Example with Action Methods</h2>
+    <pre>
+package rahulshettyacademy.pageobjects;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class LandingPage {
+  WebDriver driver;
+
+  // Page Elements
+  @FindBy(id = "userEmail")
+  WebElement userEmail;
+
+  @FindBy(id = "userPassword")
+  WebElement password;
+
+  @FindBy(id = "login")
+  WebElement submit;
+
+  // Constructor initializes elements
+  public LandingPage(WebDriver driver) {
+    this.driver = driver;
+    PageFactory.initElements(driver, this);
+  }
+
+  // Action method for login scenario
+  public void loginApplication(String email, String pwd) {
+    userEmail.sendKeys(email);
+    password.sendKeys(pwd);
+    submit.click();
+  }
+
+  // Method for navigating to the landing page
+  public void goTo() {
+    driver.get("https://rahulshettyacademy.com/client");
+  }
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Cleaner Usage in Tests</h2>
+    <pre>
+WebDriver driver = new ChromeDriver();
+LandingPage landingPage = new LandingPage(driver);
+
+// Navigate, then login with one method call
+landingPage.goTo();
+landingPage.loginApplication("your_email@example.com", "your_password");
+    </pre>
+    <p>
+      Your test code becomes more readable and maintainable. Anyone reading your
+      test instantly knows the sequence of UI actions being performed.
+    </p>
+
+    <h2 class="post-heading-h2">Page Object Example with List Elements</h2>
+    <p>
+      For lists of elements (like products), declare them as
+      <code>List&lt;WebElement&gt;</code> using <code>@FindBy</code> annotation,
+      making it easy to loop or filter in the action methods.
+    </p>
+    <pre>
+package rahulshettyacademy.pageobjects;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import java.util.List;
+
+public class ProductCatalogue {
+  WebDriver driver;
+
+  // List for all products on the page
+  @FindBy(css = ".mb-3")
+  List&lt;WebElement&gt; products;
+
+  public ProductCatalogue(WebDriver driver) {
+    this.driver = driver;
+    PageFactory.initElements(driver, this);
+  }
+
+  // Example action method: get product list
+  public List&lt;WebElement&gt; getProductList() {
+    return products;
+  }
+}
+    </pre>
+
+    <ul>
+      <li>
+        <b
+          >Action methods group several steps for single scenarios (login,
+          search, checkout).</b
+        >
+      </li>
+      <li>
+        <b
+          >Test scripts only call these methods and supply relevant data (no
+          hardcoding in page objects).</b
+        >
+      </li>
+      <li>
+        <b
+          >List element annotation enables easy collection handling (loop,
+          filter, click).</b
+        >
+      </li>
+      <li>
+        <b
+          >Common utilities like explicit waits should be centralized in base
+          classes for reusability.</b
+        >
+      </li>
+    </ul>
+
+    <div class="tip">
+      <b>Tip:</b> Page object classes should only hold elements and actions.
+      Pass data from your tests; never hardcode data in page objects.
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      Page Object Model with action methods enables scalable, readable
+      automation design. Encapsulate logic per page, pass data from tests, and
+      use reusable utility methods in a shared base class for efficiency.
+    </p>
+  </div>
+</div>

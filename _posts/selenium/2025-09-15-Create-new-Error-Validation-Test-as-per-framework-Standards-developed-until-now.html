@@ -1,0 +1,91 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">Selenium POM: TestNG Annotations and Error Validation Example</h1>
+
+    <p>
+      Let's further optimize our test framework. Instead of initializing the driver and launching the application in every test method, we centralize these using <b>@BeforeMethod</b> and <b>@AfterMethod</b> in <code>BaseTest</code>, making every test focused and DRY!
+    </p>
+    
+    <h2 class="post-heading-h2">Setup and Teardown with TestNG</h2>
+    <pre>
+public class BaseTest {
+  public WebDriver driver;
+  public LandingPage landingPage;
+
+  @BeforeMethod
+  public void launchApplication() throws IOException {
+    driver = initializeDriver();
+    landingPage = new LandingPage(driver);
+    landingPage.goTo();
+  }
+
+  @AfterMethod
+  public void tearDown() {
+    driver.quit();
+  }
+}
+    </pre>
+    <ul>
+      <li><b>@BeforeMethod:</b> Runs before <i>every</i> test method, setting up driver and landing on homepage.</li>
+      <li><b>@AfterMethod:</b> Runs after every test method, closing the browser automatically.</li>
+      <li>All setup/cleanup is <b>shared</b> between tests via inheritance—no repeated code in test classes!</li>
+    </ul>
+
+    <h2 class="post-heading-h2">LandingPage Error Message Extraction</h2>
+    <pre>
+// In LandingPage.java
+@FindBy(css = "[class*='flyout']")
+WebElement errorMessage;
+
+public String getErrorMessage() {
+  waitForWebElementToAppear(errorMessage);
+  return errorMessage.getText();
+}
+
+// In AbstractComponent.java
+public void waitForWebElementToAppear(WebElement ele) {
+  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+  wait.until(ExpectedConditions.visibilityOf(ele));
+}
+    </pre>
+
+    <h2 class="post-heading-h2">Test: Error Validation</h2>
+    <pre>
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import rahulshettyacademy.testcomponents.BaseTest;
+
+public class ErrorValidationsTest extends BaseTest {
+
+  @Test
+  public void loginErrorValidation() {
+    landingPage.loginApplication("wrongemail@gmail.com", "wrongpassword");
+    String actualMsg = landingPage.getErrorMessage();
+    Assert.assertEquals(actualMsg, "Incorrect email or password.");
+  }
+}
+    </pre>
+    <ul>
+      <li><b>No driver or browser management</b> in the test—just pure validation code.</li>
+      <li>If the error message doesn’t match, TestNG shows a failure with the real UI message for debugging.</li>
+      <li>You can easily copy/paste and adjust this structure for more tests or bulk validations.</li>
+    </ul>
+
+    <div class="tip">
+      <b>Tip:</b> Always keep setup and teardown in <code>BaseTest</code> via TestNG annotations and send result strings back to tests for assertion. Your test cases will become cleaner, faster, and more maintainable!
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      Using <b>@BeforeMethod</b> and <b>@AfterMethod</b> moves all app setup and cleanup into your base class. Each test is short and focused just on the business logic. Use page objects only for UI actions and result extraction—put actual assertions in the test classes for full flexibility and DRY design.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,174 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Using Java Streams for Efficient Selenium Product Automation
+    </h1>
+    <p>
+      Learn how to leverage <b>Java Streams</b> with Selenium WebDriver to
+      filter, find, and interact with product elements smartly. This modern
+      approach streamlines code, making it concise and maintainable for
+      automation engineers!
+    </p>
+
+    <h2 class="post-heading-h2">Step 1: Why Java Streams?</h2>
+    <ul>
+      <li>
+        Traditional <code>for</code> loops in Selenium often require multiple
+        lines for searching and condition checks.
+      </li>
+      <li>
+        Java Streams let you <b>iterate, filter, and return elements</b> in a
+        single line, optimizing your automation scripts.
+      </li>
+      <li>
+        Teams and recruiters increasingly expect clean, modern Java—this
+        approach aligns with those standards.
+      </li>
+    </ul>
+    <div class="tip">
+      <b>Tip:</b> Streams require Java 8+—ensure your project uses Java 8 or
+      higher for compatibility.
+    </div>
+
+    <h2 class="post-heading-h2">Step 2: Filter Products with Streams</h2>
+    <ol>
+      <li class="step-title">Collect Product Elements:</li>
+      <ul>
+        <li>
+          Use Selenium to fetch all products:
+          <pre>
+List&lt;WebElement&gt; products = driver.findElements(By.cssSelector(".mb-3"));
+          </pre>
+        </li>
+      </ul>
+
+      <li class="step-title">Stream &amp; Filter for Target Product:</li>
+      <ul>
+        <li>
+          Retrieve a specific product by its name using streams:
+          <pre>
+WebElement prod = products.stream()
+    .filter(product -&gt; product.findElement(By.cssSelector("b")).getText().equals("ZARA COAT 3"))
+    .findFirst()
+    .orElse(null);
+          </pre>
+        </li>
+      </ul>
+
+      <li class="step-title">Why This Works:</li>
+      <ul>
+        <li>
+          Instead of scanning the whole page,
+          <code>product.findElement</code> narrows the search to the current
+          product block (<code>.mb-3</code>).<br />
+          Only the desired product card is retrieved and stored in
+          <code>prod</code>.
+        </li>
+      </ul>
+    </ol>
+
+    <div class="warning">
+      <b>Note:</b> If product names are not unique, <code>filter</code> may
+      return multiple elements. In such cases, collect results as a
+      <code>List&lt;WebElement&gt;</code>.
+    </div>
+
+    <h2 class="post-heading-h2">Step 3: Click “Add To Cart” Button</h2>
+    <ol>
+      <li class="step-title">Scope the Search to the Product:</li>
+      <ul>
+        <li>
+          Target the "Add To Cart" button inside <code>prod</code>, not
+          globally. This ensures only the relevant button is clicked.
+        </li>
+      </ul>
+
+      <li class="step-title">Use Precise CSS Selector:</li>
+      <ul>
+        <li>
+          The "Add To Cart" button is usually the last
+          <code>&lt;button&gt;</code> inside <code>.card-body</code>.
+          <pre>
+prod.findElement(By.cssSelector(".card-body button:last-of-type")).click();
+          </pre>
+        </li>
+        <li>
+          <b>Explanation:</b> <code>.card-body button:last-of-type</code> picks
+          the last button (which is "Add To Cart") among sibling buttons.
+        </li>
+      </ul>
+    </ol>
+
+    <div class="tip">
+      <b>Tip:</b> Scoping with <code>prod.findElement</code> avoids finding the
+      wrong button, especially when multiple products exist.
+    </div>
+
+    <h2 class="post-heading-h2">Step 4: Version Compliance</h2>
+    <ul>
+      <li>
+        Streams require Java 8+ (<code>1.8</code>). In Eclipse, fix errors by
+        setting <b>Java Compiler</b> compliance in project properties.
+      </li>
+    </ul>
+    <div class="warning">
+      <b>Note:</b> Go to <b>Properties &rarr; Java Compiler</b> and set the
+      version to 1.8 or higher if you see "stream" related errors.
+    </div>
+
+    <h3 class="post-heading-h3">Complete Java Code Example</h3>
+    <pre>
+package rahulshettyacademy.SeleniumFrameworkDesign;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class StandAloneTest {
+
+	public static void main(String[] args) {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();
+		
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().window().maximize();
+		
+		driver.get("https://rahulshettyacademy.com/client");
+		
+		driver.findElement(By.id("userEmail")).sendKeys("rkb.sdet@gmail.com");
+		driver.findElement(By.id("userPassword")).sendKeys("Dell#3000");
+		
+		driver.findElement(By.id("login")).click();
+
+		List<WebElement> prods = driver.findElements(By.cssSelector(".mb-3"));
+
+		WebElement product = prods.stream().filter(prod->prod.findElement(By.cssSelector("b")).getText().equals("ZARA COAT 3")).findFirst().orElse(null);
+		
+		product.findElement(By.cssSelector(".card-body button:last-of-type")).click();
+	}
+
+}
+    </pre>
+    <hr />
+    <p>
+      Using modern Java and Selenium together simplifies your automation, boosts
+      maintainability, and aligns your scripts with today's industry standards.
+      Try this approach and maximize your productivity!
+    </p>
+  </div>
+</div>

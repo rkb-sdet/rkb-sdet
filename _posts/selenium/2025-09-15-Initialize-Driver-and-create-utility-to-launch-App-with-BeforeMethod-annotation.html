@@ -1,0 +1,82 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+category: "selenium"
+tags: ["software-testing", "automation", "selenium", "java"]
+image: "/assets/images/selenium/selenium-logo.jpg"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">Selenium POM: launchApplication Method and TestNG Integration</h1>
+
+    <p>
+      To further streamline your tests, move all browser initialization, app launching, and landing page object creation into a single method in your <b>BaseTest</b>. This avoids driver and setup duplication in every test—and lets you seamlessly use TestNG annotations for robust suite execution.
+    </p>
+
+    <h2 class="post-heading-h2">Building the <code>launchApplication</code> Method</h2>
+    <p>
+      Place this method inside your <code>BaseTest</code> class. It initializes the driver, launches the e-commerce app homepage, and returns a freshly created <b>LandingPage</b> page object to each test:
+    </p>
+    <pre>
+public LandingPage launchApplication() throws IOException {
+  driver = initializeDriver(); // Sets up browser and driver
+  LandingPage landingPage = new LandingPage(driver);
+  landingPage.goTo();
+  return landingPage; // Enables tests to act on landing page
+}
+    </pre>
+    <p>
+      This method lets every test begin at the correct starting state, without repeating setup code.
+    </p>
+
+    <h2 class="post-heading-h2">Using <code>BaseTest</code> and TestNG in Actual Tests</h2>
+    <ul>
+      <li>
+        Extend <code>BaseTest</code> in all your test classes.<br>
+        No need for <code>main()</code>; use <code>@Test</code> NG annotations instead.
+      </li>
+      <li>
+        Each test starts by calling <code>launchApplication()</code> to obtain the <b>LandingPage</b> object.
+      </li>
+    </ul>
+    <pre>
+package rahulshettyacademy.tests;
+
+import org.testng.annotations.Test;
+import rahulshettyacademy.testcomponents.BaseTest;
+import rahulshettyacademy.pageobjects.LandingPage;
+
+// Example TestNG test case
+public class SubmitOrderTest extends BaseTest {
+
+  @Test
+  public void submitOrder() throws IOException {
+    LandingPage landingPage = launchApplication();
+    // Use landingPage for login; continue flow...
+  }
+}
+    </pre>
+    <p>
+      This conversion means <strong>no manual driver handling</strong> in test classes, and much cleaner tests.
+    </p>
+
+    <h2 class="post-heading-h2">Why Return the Page Object?</h2>
+    <p>
+      Returning <code>LandingPage</code> from <code>launchApplication()</code> lets you:</p>
+      <ul>
+        <li>Catch the object in your test, and immediately perform login or further steps without extra driver code.</li>
+        <li>Keep all test preconditions (browser, app ready, on homepage) managed in one place.</li>
+      </ul>
+
+    <div class="tip">
+      <b>Tip:</b> This pattern works for all apps—just replace <code>LandingPage</code> with your actual entry point page object!
+    </div>
+
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      Refactoring to use <b>BaseTest</b> and <b>TestNG</b> streamlines your Selenium codebase.
+      Tests no longer need to manually manage driver setup or app starting; the <code>launchApplication</code> method ensures every test reliably begins with the app open and page objects ready.
+    </p>
+  </div>
+</div>

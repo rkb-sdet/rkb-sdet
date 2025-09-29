@@ -1,0 +1,184 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+categories: gen-ai
+tags: ["prompt engineering", "few shot prompting", "test automation", "gen-ai"]
+image: "/assets/images/genai/genai.webp"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">Few-Shot Prompting: Using Examples to Guide AI</h1>
+
+    <p>
+      In the previous sections, we explored
+      <strong>zero-shot prompting</strong> and how refining prompts with
+      <span class="highlight">context, constraints, and clarity</span> improves
+      responses. Now, let’s look at another practical technique:
+      <span class="highlight">Few-Shot Prompting</span>. Instead of just giving
+      AI detailed instructions, you supply examples of the expected output
+      format. This helps the model understand exactly how you want your results
+      structured.
+    </p>
+
+    <h2 class="post-heading-h2">1. Why Few-Shot Prompting Matters</h2>
+    <p>
+      Many testers often give vague prompts like
+      <em>"Write test cases for login page."</em> The problem is that AI might
+      generate random or overly broad test cases. Instead, by providing
+      <span class="highlight">examples of expected structure</span>, you guide
+      the AI to deliver focused and formatted outputs aligned to your needs.
+    </p>
+    <p>
+      In a real sprint environment, testers don’t usually write all test cases
+      for an entire system at once. Instead, they focus on specific stories,
+      like
+      <strong>valid login</strong>, <strong>invalid login</strong>, or
+      <strong>forgot password</strong>. Few-shot prompting helps in such cases
+      by showing AI not only <em>what</em> to generate but also <em>how</em> to
+      present it.
+    </p>
+
+    <h2 class="post-heading-h2">
+      2. Adding Constraints for Better Test Case Output
+    </h2>
+    <ul>
+      <li>
+        Specify the role:
+        <em>"You are a QA engineer working on an e-commerce site."</em>
+      </li>
+      <li>
+        Define scope: focus on
+        <strong>valid login, invalid login, and forgot password</strong>.
+      </li>
+      <li>Ask for <strong>positive and negative test cases</strong>.</li>
+      <li>
+        Include environment constraints: e.g.,
+        <em>"Browsers: Chrome & Firefox."</em>
+      </li>
+      <li>Request a specific format (e.g., a table with defined columns).</li>
+      <li>
+        Add <strong>priority levels</strong> for each test case (High, Medium,
+        Low).
+      </li>
+    </ul>
+
+    <div class="note">
+      Example Refined Prompt: <br />
+      <em>
+        "You are a QA engineer testing an e-commerce site. Write test cases only
+        for login functionality (valid login, invalid login, forgot password).
+        Include positive and negative scenarios. Cover Firefox and Chrome
+        browsers. Provide results in a table format with columns: Test Case ID,
+        Scenario, Steps, Expected Result, Browser, Priority."
+      </em>
+    </div>
+
+    <h2 class="post-heading-h2">3. What is Few-Shot Prompting?</h2>
+    <p>
+      Few-shot prompting means providing a couple of
+      <strong>sample outputs</strong> in advance so the AI knows how to
+      structure subsequent answers. This saves time and avoids repeatedly
+      clarifying your needs.
+    </p>
+    <p>Here’s how it works:</p>
+    <ol>
+      <li>You ask a question: <em>"Write test case for valid login."</em></li>
+      <li>
+        You provide an example test case in the format you expect (a table or
+        steps).
+      </li>
+      <li>
+        The AI uses both your question and your example to generate test cases
+        for other scenarios (invalid login, forgot password, etc.).
+      </li>
+    </ol>
+
+    <h2 class="post-heading-h2">
+      4. Example of Few-Shot Prompting for Login Test Cases
+    </h2>
+
+    <p>Sample input for few-shot prompting could look like this:</p>
+
+    <div class="note">
+      <strong>Example Prompt with Format:</strong><br />
+      "You are a QA engineer. Here is the format I want you to follow:"
+      <br /><br />
+      <table border="1" cellpadding="6" cellspacing="0">
+        <tr>
+          <th>Test Case ID</th>
+          <th>Scenario</th>
+          <th>Steps</th>
+          <th>Expected Result</th>
+          <th>Browser</th>
+          <th>Priority</th>
+        </tr>
+        <tr>
+          <td>TC001</td>
+          <td>Valid Login</td>
+          <td>
+            1. Launch site<br />2. Navigate to Login<br />3. Enter valid
+            credentials<br />4. Click Login
+          </td>
+          <td>User is successfully logged in and redirected to Dashboard</td>
+          <td>Chrome, Firefox</td>
+          <td>High</td>
+        </tr>
+      </table>
+      <br />
+      "Now generate test cases for <em>Invalid Login</em> and
+      <em>Forgot Password</em> using the same format."
+    </div>
+
+    <h2 class="post-heading-h2">5. Benefits of Few-Shot Prompting</h2>
+    <ul>
+      <li>
+        <strong>Consistency:</strong> AI follows the exact structured format you
+        provide.
+      </li>
+      <li>
+        <strong>Time-Saving:</strong> Avoids converting free-text into tables
+        later.
+      </li>
+      <li>
+        <strong>Customization:</strong> Ensures prompts align with your team’s
+        reporting standards.
+      </li>
+      <li>
+        <strong>Selective Scope:</strong> Limits output only to what you
+        actually want.
+      </li>
+    </ul>
+
+    <h2 class="post-heading-h2">6. Key Takeaways</h2>
+    <ul>
+      <li>
+        Few-shot prompting uses <strong>examples</strong> to guide output
+        formatting.
+      </li>
+      <li>
+        Always include role (context), scope (constraints), and structure
+        (clarity).
+      </li>
+      <li>
+        This technique is highly effective when writing structured outputs, like
+        test cases.
+      </li>
+      <li>
+        Combining <span class="highlight">technical skills</span> with
+        <span class="highlight">smart prompting</span> gives you an edge in QA
+        and automation.
+      </li>
+    </ul>
+
+    <p>
+      In the next section, we will discuss another prompting strategy that
+      builds on this concept, helping you handle
+      <strong>iterative refinement</strong> when initial outputs aren’t perfect.
+    </p>
+
+    <div class="post-footer">
+      © 2025 Rohit Bhardwaj | Few-Shot Prompting for Effective Test Case Design
+    </div>
+  </div>
+</div>

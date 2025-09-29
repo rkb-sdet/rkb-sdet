@@ -1,0 +1,167 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+categories: gen-ai
+tags: ["prompt engineering", "three Cs", "quality assurance", "gen-ai"]
+image: "/assets/images/genai/genai.webp"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">
+      Refining Prompts with the Three C’s: Context, Constraints & Clarity
+    </h1>
+
+    <p>
+      The accuracy of AI depends heavily on how well you frame your question.
+      Refining prompts with proper
+      <span class="highlight">constraints</span> and
+      <span class="highlight">clarity</span> makes the difference between
+      wasting tokens and getting correct, actionable results in the first
+      attempt. This is where the
+      <span class="highlight">Three C’s Framework</span>—Context, Constraints,
+      and Clarity—comes into play.
+    </p>
+
+    <h2 class="post-heading-h2">
+      1. Why Adding Constraints Changes Everything
+    </h2>
+    <p>
+      A vague prompt such as
+      <em>"How long does it take from SFO to New York?"</em> leads AI to give
+      multiple outputs—flight times, driving times, even walking durations.
+      Instead, adding a simple constraint like <em>"by car"</em> refines the
+      answer to what you actually want.
+    </p>
+    <p>
+      Similarly, when planning a road trip, you might want sightseeing
+      suggestions. If you don’t specify constraints like
+      <em>“detours must be under 1 hour”</em>, AI might suggest locations that
+      drastically increase driving time. By tightening constraints, you guide
+      the AI to deliver results tailored to your needs.
+    </p>
+
+    <div class="note">
+      ❌ Vague Prompt: "How long does it take from SFO to New York?"<br />
+      ✅ Refined Prompt: "How long will it take to drive from SFO to New York by
+      car, visiting historical landmarks within 1 hour detour?"
+    </div>
+
+    <h2 class="post-heading-h2">2. Talk to AI Like a Beginner</h2>
+    <p>
+      AI doesn’t know what’s in your mind. Be
+      <span class="highlight">brutally specific</span>, as if you are explaining
+      to a child. Do not assume AI will infer your goals—state them explicitly.
+      This ensures the model delivers targeted results without hallucination.
+    </p>
+
+    <h2 class="post-heading-h2">3. Applying the Three C’s Framework</h2>
+    <ul>
+      <li>
+        <strong>Context:</strong> Define the role AI should play and set the
+        scenario.
+      </li>
+      <li>
+        <strong>Constraints:</strong> Provide detailed rules and boundaries for
+        the response.
+      </li>
+      <li>
+        <strong>Clarity:</strong> Specify output format and structure you
+        expect.
+      </li>
+    </ul>
+
+    <div class="tip">
+      Example: <br />
+      <em>
+        "I am planning a road trip from SFO to New York in September (Context).
+        List historical landmarks along the route that are accessible by car
+        with less than one hour detour (Constraints). Provide results in a table
+        format with Name, Location, and Estimated Detour Time (Clarity)."
+      </em>
+    </div>
+
+    <h2 class="post-heading-h2">4. Why Technical Skills Still Matter</h2>
+    <p>
+      Even with strong prompting techniques,
+      <strong>AI cannot replace technical judgment</strong>. AI might generate
+      automation code for your login feature, but without domain knowledge, you
+      won’t know whether it’s secure or accurate. This is why prompting must go
+      hand-in-hand with technical expertise.
+    </p>
+    <p>
+      For example, asking AI: <em>"Find bugs in my login code"</em> is vague.
+      Instead, refine it to:
+      <em
+        >"You are a QA engineer reviewing my Python login code for security
+        vulnerabilities. Focus only on SQL injection and password storage
+        issues. Provide results in bullet points with issue descriptions and
+        line numbers."</em
+      >
+    </p>
+    <p>
+      The difference is night and day. The prompt includes
+      <span class="highlight">context</span> (role = QA engineer),
+      <span class="highlight">constraints</span> (check only security
+      vulnerabilities), and <span class="highlight">clarity</span> (output in
+      bullet points with line numbers).
+    </p>
+
+    <h2 class="post-heading-h2">
+      5. QA Analogy: Prompting as Test Case Design
+    </h2>
+    <p>
+      Think of <span class="highlight">Prompts as Test Cases</span>. Just like
+      how a tester must detail steps, expected outcomes, and acceptance
+      criteria, a prompter must include context, constraints, and clarity to
+      ensure AI delivers correct responses.
+    </p>
+    <ul>
+      <li>Vague test cases = Ambiguous prompts → Incorrect results</li>
+      <li>
+        Clear acceptance criteria = Well-defined constraints → Accurate AI
+        responses
+      </li>
+      <li>Expected results format = Defined clarity → Actionable answers</li>
+    </ul>
+
+    <h2 class="post-heading-h2">6. Key Takeaways</h2>
+    <ul>
+      <li>
+        AI outputs improve significantly when prompts include
+        <strong>context, constraints, clarity</strong>.
+      </li>
+      <li>
+        A refined prompt saves time, reduces hallucination, and avoids token
+        wastage.
+      </li>
+      <li>AI is powerful, but it must be guided precisely—assume nothing.</li>
+      <li>
+        Combine <span class="highlight">prompting skills</span> with
+        <span class="highlight">technical knowledge</span> for maximum
+        effectiveness.
+      </li>
+      <li>
+        Treat prompts the same way you treat writing high-quality test cases in
+        QA.
+      </li>
+    </ul>
+
+    <p>
+      In the next section, we’ll explore the concept of
+      <span class="highlight">AI tokens</span>—and how cost-effective or
+      expensive AI becomes depending on how you prompt and consume resources.
+    </p>
+
+    <p>
+      <em
+        >Prompting smartly isn’t optional—it’s the core skill that separates
+        average output from professional-grade answers.</em
+      >
+    </p>
+
+    <div class="post-footer">
+      © 2025 Rohit Bhardwaj | Refining Prompts with the Three C’s
+    </div>
+  </div>
+</div>

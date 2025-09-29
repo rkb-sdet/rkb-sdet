@@ -1,0 +1,93 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+categories: gen-ai
+tags: ["automation", "end-to-end testing", "AI-generated code", "Playwright", "Cucumber"]
+image: "/assets/images/genai/genai.webp"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+
+    <h1 class="post-title">Real-Time AI-Driven End-to-End Test Automation: From Requirements to Code</h1>
+
+    <p>
+      In this practical example, we explore the power of AI combined with prompt engineering to generate full end-to-end test automation artifacts — starting from a business requirement through to automation-ready code.
+    </p>
+
+    <h2 class="post-heading-h2">Scenario: Order History Validation on Rahul Shetty Academy Client Portal</h2>
+
+    <p>
+      Consider the test case <strong>UA-07</strong> which validates the <em>order history</em> feature. A user logs in, navigates to the order history page, and verifies that past orders display correct details such as order number, date, and status.
+    </p>
+
+    <h2 class="post-heading-h2">Generating Cucumber Gherkin Feature File</h2>
+
+    <p>
+      By prompting AI with the test case ID and relevant order table column details, it produces a structured <code>Feature</code> file with clear scenarios and a <code>Background</code> for prerequisites:
+    </p>
+    <pre>
+Feature: Order History
+
+Background:
+  Given the user has logged in with valid credentials
+
+Scenario: Display order history table
+  When the user navigates to the order history page
+  Then the order history table shows valid order details in each row
+    </pre>
+
+    <h2 class="post-heading-h2">Auto-Generated Playwright JavaScript Step Definitions</h2>
+
+    <p>
+      Based on the feature file and the actual HTML of the order table pasted into the AI prompt, it generates step definitions with locators and assertions to:
+    </p>
+    <ul>
+      <li>Locate table columns dynamically (order ID, date, state, etc.)</li>
+      <li>Iterate over rows to verify data correctness</li>
+      <li>Include filters and validations matching columns precisely</li>
+    </ul>
+    <p>
+      This results in ready-to-run Playwright automation code, cutting down development time drastically.
+    </p>
+
+    <h2 class="post-heading-h2">Refining the Framework with Page Object Model</h2>
+
+    <p>
+      AI can also refactor raw locators and assertions into maintainable code using the <strong>Page Object Model</strong>.  
+      This involves generating separate page object classes with locator methods and importing these into step definitions, following your team's framework standards.
+    </p>
+    <p>
+      If your project uses TypeScript instead of JavaScript, or Selenium Java instead of Playwright, AI can regenerate code snippets in the desired language and style.
+    </p>
+
+    <h2 class="post-heading-h2">Why Human Expertise Still Matters</h2>
+
+    <p>
+      While AI generates up to 70% of perfect code, manual intervention remains crucial to:
+    </p>
+    <ul>
+      <li>Adjust locators for dynamic elements or application-specific patterns</li>
+      <li>Incorporate business logic and edge case handling</li>
+      <li>Optimize and maintain test scripts for stability and scalability</li>
+    </ul>
+    <p>
+      Prompt engineering skills help testers guide AI to produce accurate, framework-compliant automation faster than ever.
+    </p>
+
+    <h2 class="post-heading-h2">Summary</h2>
+
+    <p>
+      From requirements, through test cases and data, to framework-ready automation scripts—AI-powered tools combined with expert prompting are transforming end-to-end test automation.  
+      This example from Rahul Shetty Academy’s client portal illustrates how you can jumpstart your automation projects, saving time and focusing on quality improvement.
+    </p>
+
+    <p>
+      Stay tuned for deeper dives into AI-driven continuous integration, advanced framework design, and multi-agent autonomous testing workflows.
+    </p>
+
+    <div class="post-footer">
+      © 2025 Rohit Bhardwaj | AI-Powered End-to-End Test Automation in Real Time
+    </div>
+  </div>
+</div>

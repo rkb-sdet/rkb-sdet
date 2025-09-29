@@ -1,0 +1,59 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+categories: gen-ai
+tags: ["testRigor","Live Mode","conventions","codeless automation","AI QA"]
+image: "/assets/images/genai/genai.webp"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+
+    <h1 class="post-title">Live Mode in testRigor: Automate End-to-End Flows in Plain English</h1>
+
+    <p>
+      Live Mode in <span class="highlight">testRigor</span> empowers testers to build, validate, and debug automation flows step-by-step using plain English conventions, all directly from the browser UI—without writing code or specifying selectors.
+    </p>
+    
+    <h2 class="post-heading-h2">How Does Live Mode Work?</h2>
+    <ul>
+      <li>From your <span class="highlight">TestSuite</span>, launch <span class="highlight">Live Mode</span> to open your application homepage.</li>
+      <li>Directly enter English instructions that mimic real user actions, such as:<br>
+        <code>click "ADD TO CART" under Carrot</code><br>
+        <code>click "cart"</code><br>
+        <code>click "PROCEED TO CHECKOUT"</code><br>
+        <code>enter "rahulshettyacademy" into field</code><br>
+        <code>click "Apply"</code><br>
+        <code>check that page contains "Code applied ..!"</code>
+      </li>
+      <li>The Live Mode UI shows real-time results, screenshots, and feedback after each executed step, making it easy to adjust or debug as you go.</li>
+      <li>You can reference elements contextually (using <span class="highlight">under</span>, <span class="highlight">next to</span>, <span class="highlight">below</span>), making interactions robust even when UI has duplicate buttons or controls.</li>
+    </ul>
+    
+    <h2 class="post-heading-h2">Hands-On Example: Coupon Flow Automation</h2>
+    <ol>
+      <li>Add a Broccoli and a Carrot to the cart by referencing <span class="highlight">under item</span> context in your click commands.</li>
+      <li>Open the shopping cart and proceed to checkout with unique commands referencing visible labels.</li>
+      <li>Enter coupons or test values into the promo code field, leveraging context such as <span class="highlight">to the left of Apply</span> for ambiguous entry boxes.</li>
+      <li>Apply the coupon and assert successful or failed application using <span class="highlight">check that page contains "Code applied ..!"</span> or <span class="highlight">"Invalid code ..!"</span>.</li>
+      <li>Clear fields (using keyboard inputs like <span class="highlight">ctrl+A and delete</span>) and test negative scenarios seamlessly.</li>
+    </ol>
+    
+    <h2 class="post-heading-h2">Key Features for Scalable Automation</h2>
+    <ul>
+      <li>Reusable rules: Write common steps once as <span class="highlight">Rule</span> (e.g., login), then invoke by name in all tests.</li>
+      <li>Data-driven support: Test Data management lets you inject dynamic, external data into flows the same way as traditional frameworks.</li>
+      <li>Modern reporting: Failures are grouped by root cause, impacted tests are summarized, and screenshot comparisons highlight before/after UI changes for precise debugging.</li>
+      <li>Jira integration and fix propagation: One-click bug ticket creation and global fix/replace for repetitive failures.</li>
+    </ul>
+    
+    <h2 class="post-heading-h2">Summary</h2>
+    <p>
+      AI-powered Live Mode transforms plain English into resilient, end-to-end automation in minutes—enabling testers of all skill levels to accelerate quality and feedback with minimal code and maximum productivity.
+    </p>
+
+    <div class="post-footer">
+      © 2025 Rohit Bhardwaj | Supercharge Test Automation with testRigor Live Mode
+    </div>
+  </div>
+</div>

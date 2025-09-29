@@ -1,0 +1,165 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+categories: gen-ai
+tags: ["prompt engineering", "tokens", "quality assurance", "gen-ai"]
+image: "/assets/images/genai/genai.webp"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">Understanding Tokens: The Cost of Your Prompts</h1>
+
+    <p>
+      Every interaction with a
+      <span class="highlight">Large Language Model (LLM)</span> comes down to
+      tokens. Tokens are the
+      <strong>building blocks of AI input and output</strong>. Knowing how
+      tokens are measured and consumed is crucial not only for efficiency but
+      also for reducing costs—since most paid AI models charge you per 1000
+      tokens.
+    </p>
+
+    <h2 class="post-heading-h2">1. What is a Token?</h2>
+    <p>
+      A token is a <span class="highlight">chunk of text</span> that an AI model
+      processes. On average, one token equals around
+      <strong>4 characters in English</strong>, including letters, spaces, and
+      punctuation. Roughly, <em>1 token ≈ ¾ of a word</em>.
+    </p>
+    <p>For example:</p>
+    <ul>
+      <li>The word <em>"Write"</em> → 1 token (4 characters).</li>
+      <li>The phrase <em>"Write test cases for login"</em> → ~7–8 tokens.</li>
+      <li>A 75-word prompt → ~100 tokens.</li>
+    </ul>
+
+    <div class="note">
+      Quick Reference:
+      <br />1 token ≈ 4 characters ≈ ¾ of a word. <br />100 words ≈ ~130 tokens
+      (approx).
+    </div>
+
+    <h2 class="post-heading-h2">2. Token Calculation in Action</h2>
+    <p>
+      Suppose you ask the vague prompt:
+      <em>"Write test cases for login page"</em>. This costs ~8 tokens. On the
+      other hand, if you ask a detailed prompt with
+      <span class="highlight">Context</span>,
+      <span class="highlight">Constraints</span>, and
+      <span class="highlight">Clarity</span>, you may spend ~55 tokens on the
+      input.
+    </p>
+    <p>
+      Which one is cheaper? At first glance, the vague prompt seems cheaper. But
+      here’s the problem:
+    </p>
+    <ul>
+      <li>
+        Vague prompts lead to long, unfocused responses (100+ tokens in output).
+      </li>
+      <li>
+        You often end up asking 2–3 clarifying follow-up prompts → more tokens
+        consumed.
+      </li>
+      <li>
+        Detailed prompts give concise, structured answers in fewer overall
+        tokens.
+      </li>
+    </ul>
+
+    <h2 class="post-heading-h2">3. Input vs Output Tokens</h2>
+    <p>AI token usage counts in <strong>two directions</strong>:</p>
+    <ol>
+      <li><strong>Input Tokens:</strong> Consumed when you send a prompt.</li>
+      <li>
+        <strong>Output Tokens:</strong> Consumed when the AI generates a
+        response.
+      </li>
+    </ol>
+    <p>
+      Total tokens for one query =
+      <strong>Input Tokens + Output Tokens</strong>.
+    </p>
+
+    <h2 class="post-heading-h2">4. Smart Prompting Saves Tokens</h2>
+    <p>Let’s compare:</p>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <tr>
+        <th>Prompt Type</th>
+        <th>Input Tokens</th>
+        <th>Output Tokens</th>
+        <th>Total</th>
+      </tr>
+      <tr>
+        <td>❌ Vague Prompt<br />"Write test cases for login"</td>
+        <td>~8</td>
+        <td>120+ (long, unfocused answer)</td>
+        <td>128+</td>
+      </tr>
+      <tr>
+        <td>
+          ✅ Refined Prompt<br />"You are a QA engineer. Write test cases for
+          login in table format, include positive & negative scenarios, Chrome &
+          Firefox, with priority levels."
+        </td>
+        <td>~55</td>
+        <td>60 (concise, structured answer)</td>
+        <td>115</td>
+      </tr>
+    </table>
+    <p>
+      Even though the input is longer, the overall
+      <span class="highlight">token usage is lower</span>—and you get exactly
+      what you need without extra back-and-forth.
+    </p>
+
+    <h2 class="post-heading-h2">5. Tokens & Costs</h2>
+    <p>
+      Most providers (OpenAI, Anthropic, Gemini, etc.) charge by the
+      <strong>1,000 tokens</strong>. If your vague prompts cause repeated
+      clarifications, you are effectively <em>paying extra</em> for
+      inefficiency.
+    </p>
+    <p>
+      Detailed prompts not only save <strong>time</strong> but also reduce
+      <strong>monetary cost</strong>—a critical factor when running tests at
+      scale in enterprise environments.
+    </p>
+
+    <h2 class="post-heading-h2">6. Key Takeaways</h2>
+    <ul>
+      <li>Tokens are the <strong>currency of AI conversations</strong>.</li>
+      <li>1 token ≈ 4 characters or ~¾ of a word.</li>
+      <li>
+        Vague prompts may appear cheap but waste tokens in long, irrelevant
+        outputs.
+      </li>
+      <li>
+        Refined prompts (with Three C’s) reduce total token usage and
+        hallucinations.
+      </li>
+      <li>
+        Future interviews may test your ability to solve problems under
+        <strong>token constraints</strong>.
+      </li>
+      <li>
+        Mastering prompt engineering = saving <strong>time + cost</strong>.
+      </li>
+    </ul>
+
+    <p>
+      In the next lecture, we’ll explore the
+      <span class="highlight">Context Window Limit</span>—a key concept that
+      decides how much information a model can remember in a conversation.
+    </p>
+
+    <p>
+      <em>Think of tokens as money in your AI wallet—spend them wisely!</em>
+    </p>
+
+    <div class="post-footer">
+      © 2025 Rohit Bhardwaj | Understanding Tokens in AI
+    </div>
+  </div>
+</div>

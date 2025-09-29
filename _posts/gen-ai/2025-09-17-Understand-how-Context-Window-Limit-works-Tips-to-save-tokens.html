@@ -1,0 +1,108 @@
+---
+layout: post
+author: "Rohit Bhardwaj"
+categories: gen-ai
+tags: ["prompt engineering", "context window", "tokens", "gen-ai"]
+image: "/assets/images/genai/genai.webp"
+---
+
+<div class="post-main-container">
+  <div class="post-container">
+    <h1 class="post-title">Context Window Limit: Why AI Forgets and How to Handle It</h1>
+
+    <p>
+      When you interact with models like <span class="highlight">ChatGPT</span>, <span class="highlight">Gemini</span>, or
+      <span class="highlight">DeepSeek</span>, you may notice that after many prompts in the same chat, the model starts forgetting earlier
+      context or even says <em>"context window exceeded"</em>.  
+      This happens because every LLM processes your conversation within a <strong>context window limit</strong>.
+    </p>
+
+    <h2 class="post-heading-h2">1. What is a Context Window?</h2>
+    <p>
+      A context window is the maximum number of <span class="highlight">tokens</span> (input + output) a model can remember in a single conversation thread.
+      Every message you type and every response the AI gives consumes tokens. Once this limit is reached:
+    </p>
+    <ul>
+      <li>Older messages are dropped from memory.</li>
+      <li>AI begins to <strong>forget earlier context</strong>.</li>
+      <li>Responses become inconsistent or hallucinated.</li>
+      <li>You may get a warning to “start a fresh chat.”</li>
+    </ul>
+
+    <h2 class="post-heading-h2">2. Why Context Limits Exist</h2>
+    <p>
+      Each AI model has a fixed memory size (measured in tokens) that it can handle in one session. For example:
+    </p>
+    <ul>
+      <li>Free versions may allow only a few thousand tokens (short-term memory).</li>
+      <li>Enterprise models now support up to <strong>1 million tokens</strong> in a session.</li>
+      <li>Still, even “long memory” models eventually forget older prompts as conversations grow.</li>
+    </ul>
+    <p>
+      That’s why you cannot expect an AI to remember a 2-month-long chat thread with thousands of back-and-forth exchanges.
+    </p>
+
+    <h2 class="post-heading-h2">3. When Context Window is Exceeded</h2>
+    <p>
+      Common symptoms include:
+    </p>
+    <ul>
+      <li>AI forgets your original instructions.</li>
+      <li>Answers lose coherence with earlier chats.</li>
+      <li>You get a system message: <em>“Limit reached, please start a new chat.”</em></li>
+      <li>Performance drops as older parts of the conversation vanish.</li>
+    </ul>
+
+    <h2 class="post-heading-h2">4. Best Practices to Manage Context Window</h2>
+    <ul>
+      <li><strong>Be precise from the start:</strong> Your first prompt should be well-formed with the <span class="highlight">Three C’s—Context, Constraints, Clarity</span>.</li>
+      <li><strong>Avoid filler words:</strong> Polite phrases like “please” or “thank you” add tokens but don’t change output.</li>
+      <li><strong>Compact prompts:</strong> Summarize instead of pasting long repetitive content.</li>
+      <li><strong>Don’t re-upload files repeatedly:</strong> Once uploaded, refer to them instead of attaching again.</li>
+      <li><strong>Limit follow-ups:</strong> 1–2 clarifying questions are fine, but avoid dragging conversations into 20 vague prompts.</li>
+      <li><strong>Break long queries:</strong> If your initial prompt is too lengthy (20+ lines), split into smaller scoped prompts.</li>
+    </ul>
+
+    <div class="note">
+      Example:<br/>
+      ❌ Inefficient: Re-uploading the same 10-page BRD file multiple times across the chat.<br/>
+      ✅ Efficient: Upload once, then say <em>“Refer to the previously attached BRD and generate test cases for checkout workflow.”</em>
+    </div>
+
+    <h2 class="post-heading-h2">5. Context Window in Real Use</h2>
+    <p>
+      Context windows are particularly important in <strong>QA and test automation</strong>. Imagine pasting requirements into a model:
+    </p>
+    <ul>
+      <li>If you overload the context with repeated documents, the AI may forget your original story acceptance criteria.</li>
+      <li>If you structure your inputs well, you can extract <em>test plans, test cases, and scripts</em> efficiently without hitting limits.</li>
+    </ul>
+
+    <h2 class="post-heading-h2">6. Future Trends</h2>
+    <p>
+      Newer AI models are constantly increasing context lengths (hundreds of thousands of tokens to millions).  
+      Some enterprise-grade LLMs advertise <span class="highlight">"infinite memory"</span>, but practically,
+      managing context windows remains a <strong>skill every AI user must master</strong>.
+    </p>
+
+    <h2 class="post-heading-h2">7. Key Takeaways</h2>
+    <ul>
+      <li>A context window defines how much past conversation an AI can remember.</li>
+      <li>Exceeding it causes the model to forget earlier interactions.</li>
+      <li>Smart prompting reduces unnecessary token use and delays exhaustion of the context window.</li>
+      <li>Favor <strong>conciseness</strong> over padding your prompts with filler words.</li>
+      <li>Enterprise models provide larger windows, but efficient prompting remains critical.</li>
+    </ul>
+
+    <p>
+      In the next topic, we will put these concepts into action by generating <strong>test artifacts</strong> like test plans, test cases, and test data 
+      using generative AI—while keeping token and context efficiency in mind.
+    </p>
+
+    <p><em>Prompt engineering is not just about accuracy—it’s also about efficiency within the context window.</em></p>
+
+    <div class="post-footer">
+      © 2025 Rohit Bhardwaj | Understanding Context Window Limits in AI
+    </div>
+  </div>
+</div>
